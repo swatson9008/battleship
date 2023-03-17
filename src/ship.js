@@ -6,7 +6,8 @@ const shipFactory = function (name, length, hits) {
   ship.name = name;
   ship.length = length;
   ship.hits = hits;
-  ship.isSunk = function sunkC() { if (this.length === this.hits) { return this.true; } return this.false; };
+  ship.isSunk = sunkC();
+  function sunkC() { if (ship.length === ship.hits) { return true; } return false; }
 
   return ship;
 };
