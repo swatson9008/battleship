@@ -1,7 +1,9 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-vars */
 /* eslint-disable func-names */
 /* eslint-disable max-len */
-const shipFactory = function (name, length, hits) {
+// eslint-disable-next-line import/prefer-default-export
+export const shipFactory = function (name, length, hits) {
   const ship = {};
   ship.name = name;
   ship.length = length;
@@ -12,7 +14,7 @@ const shipFactory = function (name, length, hits) {
   return ship;
 };
 
-const carrier = shipFactory('carrier', 5, 0);
+export const carrier = shipFactory('carrier', 5, 0);
 const battleShip = shipFactory('battleship', 4, 0);
 const destroyer = shipFactory('destroyer', 3, 0);
 const submarine = shipFactory('submarine', 3, 0);
