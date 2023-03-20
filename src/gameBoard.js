@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable import/no-import-module-exports */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable new-cap */
 /* eslint-disable no-plusplus */
 
-import carrier from "./ship";
+import { carrier } from './ship';
 
 export default class gameBoard {
   constructor() {
@@ -16,7 +18,7 @@ export default class gameBoard {
     for (let i = 0; i < rows; i++) {
       boardArray[i] = [];
       for (let j = 0; j < columns; j++) {
-        boardArray[i][j] = j + 1 + (i * columns);
+        boardArray[i][j] = j + ((i * 10) + 11);
       }
     }
     return boardArray;
@@ -26,9 +28,20 @@ export default class gameBoard {
     return this.gameB;
   }
 
-  placeShipH(x, y) {
-    const Hcord = boardArray[x][y];
-    if (carrier.length + boardArray[x] + 1 <= 7)('can be placed');
+  getxy(boardArray) {
+    let xyCord = boardArray[][];
+    let x = xyCord.Math.floor((xyCord / 10) % 10);
+    let y = xyCord.Math.floor((xyCord / 1) % 10);
+
+    return x, y;
+  };
+
+  placeShipH(x) {
+    if (carrier.length + x + 1 <= 7) { 'can be placed'; } else { 'cannot be placed'; }
+  }
+
+  placeShipV(y) {
+    if (carrier.length + y + 1 <= 7) { 'can be placed'; } else { 'cannot be placed'; }
   }
 }
 
