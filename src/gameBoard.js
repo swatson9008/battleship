@@ -4,21 +4,24 @@
 /* eslint-disable new-cap */
 /* eslint-disable no-plusplus */
 
+// imported ship object for future testing
+
 import { carrier } from './ship';
 
 export default class gameBoard {
   constructor() {
     this.gameB = this.createBoard();
+    this.missCount = [];
   }
 
   createBoard() {
-    const columns = 7;
-    const rows = 7;
+    const columns = 10;
+    const rows = 10;
     const boardArray = [];
     for (let i = 0; i < rows; i++) {
       boardArray[i] = [];
       for (let j = 0; j < columns; j++) {
-        boardArray[i][j] = j + ((i * 10) + 11);
+        boardArray[i][j] = [i, j];
       }
     }
     return boardArray;
@@ -29,19 +32,26 @@ export default class gameBoard {
   }
 
   getxy(boardArray) {
-    let xyCord = boardArray[][];
-    let x = xyCord.Math.floor((xyCord / 10) % 10);
-    let y = xyCord.Math.floor((xyCord / 1) % 10);
+    const cordX = boardArray[x][y][0];
+    const cordY = boardArray[x][y][1];
 
-    return x, y;
-  };
-
-  placeShipH(x) {
-    if (carrier.length + x + 1 <= 7) { 'can be placed'; } else { 'cannot be placed'; }
+    return cordX, cordY;
   }
 
-  placeShipV(y) {
-    if (carrier.length + y + 1 <= 7) { 'can be placed'; } else { 'cannot be placed'; }
+  placeShipH(cordX) {
+    if (carrier.length + cordX + 1 <= 7) { 'can be placed'; } else { 'cannot be placed'; }
+  }
+
+  placeShipV(cordY) {
+    if (carrier.length + cordY + 1 <= 7) { 'can be placed'; } else { 'cannot be placed'; }
+  }
+
+  receiveAttack() {
+    attackCord = boardArray[x][y];
+    if (attackCord = NaN) {
+      attackCord = 0;
+      updateBoard();
+    } else { this.missCount.push(attackCord); }
   }
 }
 
