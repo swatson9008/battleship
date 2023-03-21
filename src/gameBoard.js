@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable import/no-import-module-exports */
 /* eslint-disable class-methods-use-this */
@@ -43,12 +44,12 @@ export default class gameBoard {
     return Y;
   }
 
-  placeShipH(X) {
-    if (carrier.length + X + 1 <= 9) { 'can be placed'; } else { 'cannot be placed'; }
+  placeShipH() {
+    if (1 + this.currCordX + 1 < 10) { return true; } else { return false; }
   }
 
-  placeShipV(cordY) {
-    if (carrier.length + cordY + 1 <= 9) { 'can be placed'; } else { 'cannot be placed'; }
+  placeShipV() {
+    if (1 + this.currCordY + 1 < 10) { return true; } else { return false; }
   }
 
   receiveAttack() {
