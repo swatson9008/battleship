@@ -12,6 +12,8 @@ export default class gameBoard {
   constructor() {
     this.gameB = this.createBoard();
     this.missCount = [];
+    this.currCordX = 0;
+    this.currCordY = 0;
   }
 
   createBoard() {
@@ -31,19 +33,22 @@ export default class gameBoard {
     return this.gameB;
   }
 
-  getxy(boardArray) {
-    const cordX = boardArray[x][y][0];
-    const cordY = boardArray[x][y][1];
-
-    return cordX, cordY;
+  getX() {
+    const X = this.gameB[this.currCordX][this.currCordY][0];
+    return X;
   }
 
-  placeShipH(cordX) {
-    if (carrier.length + cordX + 1 <= 7) { 'can be placed'; } else { 'cannot be placed'; }
+  getY() {
+    const Y = this.gameB[this.currCordX][this.currCordY][1];
+    return Y;
+  }
+
+  placeShipH(X) {
+    if (carrier.length + X + 1 <= 9) { 'can be placed'; } else { 'cannot be placed'; }
   }
 
   placeShipV(cordY) {
-    if (carrier.length + cordY + 1 <= 7) { 'can be placed'; } else { 'cannot be placed'; }
+    if (carrier.length + cordY + 1 <= 9) { 'can be placed'; } else { 'cannot be placed'; }
   }
 
   receiveAttack() {
