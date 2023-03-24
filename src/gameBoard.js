@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-duplicates */
 /* eslint-disable no-else-return */
 /* eslint-disable no-unused-expressions */
@@ -6,8 +7,7 @@
 /* eslint-disable new-cap */
 /* eslint-disable no-plusplus */
 
-import { shipFactory } from './ship';
-import { carrier } from './ship';
+import shipFactory from './ship';
 
 export default class gameBoard {
   constructor() {
@@ -15,6 +15,13 @@ export default class gameBoard {
     this.missCount = [];
     this.currCordX = 0;
     this.currCordY = 0;
+    this.shipList = [
+      carrier = shipFactory('carrier', 5, 0),
+      battleShip = shipFactory('battleship', 4, 0),
+      destroyer = shipFactory('destroyer', 3, 0),
+      submarine = shipFactory('submarine', 3, 0),
+      patrol = shipFactory('patrol', 2, 0),
+    ];
   }
 
   createBoard() {
@@ -34,12 +41,12 @@ export default class gameBoard {
     return this.gameB;
   }
 
-  placeShipH() {
-    if (carrier.length + this.currCordX + 1 < 10) { return true; } else { return false; }
+  placeShipH(ship) {
+    if (ship.length + this.currCordX + 1 < 10) { return true; } else { return false; }
   }
 
-  placeShipV() {
-    if (1 + this.currCordY + 1 < 10) { return true; } else { return false; }
+  placeShipV(ship) {
+    if (ship.length + this.currCordY + 1 < 10) { return true; } else { return false; }
   }
 
   receiveAttack() {

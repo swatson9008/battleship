@@ -11,7 +11,7 @@ test('displays the correct length', () => {
 });
 
 test('displays the correct message', () => {
-  expect(playerBoard.placeShipH()).toBe(true);
+  expect(playerBoard.placeShipH(carrier)).toBe(true);
 });
 
 test('testing for a false answer', () => {
