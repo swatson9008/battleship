@@ -1,3 +1,4 @@
+/* eslint-disable import/no-duplicates */
 /* eslint-disable no-else-return */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable import/no-import-module-exports */
@@ -5,8 +6,7 @@
 /* eslint-disable new-cap */
 /* eslint-disable no-plusplus */
 
-// imported ship object for future testing
-
+import { shipFactory } from './ship';
 import { carrier } from './ship';
 
 export default class gameBoard {
@@ -34,18 +34,8 @@ export default class gameBoard {
     return this.gameB;
   }
 
-  getX() {
-    const X = this.gameB[this.currCordX][this.currCordY][0];
-    return X;
-  }
-
-  getY() {
-    const Y = this.gameB[this.currCordX][this.currCordY][1];
-    return Y;
-  }
-
   placeShipH() {
-    if (1 + this.currCordX + 1 < 10) { return true; } else { return false; }
+    if (carrier.length + this.currCordX + 1 < 10) { return true; } else { return false; }
   }
 
   placeShipV() {
