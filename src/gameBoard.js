@@ -1,3 +1,6 @@
+/* eslint-disable max-len */
+/* eslint-disable no-use-before-define */
+/* eslint-disable func-names */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-duplicates */
 /* eslint-disable no-else-return */
@@ -9,19 +12,50 @@
 
 import shipFactory from './ship';
 
-export default class gameBoard {
+const gameBoard = function (player) {
+  const gameB = createBoard();
+  const missCount = [];
+  const currCordX = 0;
+  const currCordY = 0;
+
+  function createBoard() {
+    const columns = 10;
+    const rows = 10;
+    const boardArray = [];
+    for (let i = 0; i < rows; i++) {
+      boardArray[i] = [];
+      for (let j = 0; j < columns; j++) {
+        boardArray[i][j] = [i, j];
+      }
+    }
+    return boardArray;
+  }
+
+  const carrier = shipFactory('carrier', 5, 0);
+  const battleShip = shipFactory('battleship', 4, 0);
+  const destroyer = shipFactory('destroyer', 3, 0);
+  const submarine = shipFactory('submarine', 3, 0);
+  const patrol = shipFactory('patrol', 2, 0);
+
+  function placeShipH(ship) {
+    if (ship.length + currCordX + 1 < 10) { return true; } else { return false; }
+  }
+
+  function placeShipV() {
+    if (1 + currCordY + 1 < 10) { return true; } else { return false; }
+  }
+
+  return {
+    player, gameB, carrier, battleShip, destroyer, submarine, patrol, placeShipH, placeShipV,
+  };
+};
+
+/* export default class gameBoard {
   constructor() {
     this.gameB = this.createBoard();
     this.missCount = [];
     this.currCordX = 0;
     this.currCordY = 0;
-    this.shipList = [
-      carrier = shipFactory('carrier', 5, 0),
-      battleShip = shipFactory('battleship', 4, 0),
-      destroyer = shipFactory('destroyer', 3, 0),
-      submarine = shipFactory('submarine', 3, 0),
-      patrol = shipFactory('patrol', 2, 0),
-    ];
   }
 
   createBoard() {
@@ -45,8 +79,8 @@ export default class gameBoard {
     if (ship.length + this.currCordX + 1 < 10) { return true; } else { return false; }
   }
 
-  placeShipV(ship) {
-    if (ship.length + this.currCordY + 1 < 10) { return true; } else { return false; }
+  placeShipV() {
+    if (1 + this.currCordY + 1 < 10) { return true; } else { return false; }
   }
 
   receiveAttack() {
@@ -56,8 +90,8 @@ export default class gameBoard {
       updateBoard();
     } else { this.missCount.push(attackCord); }
   }
-}
+} */
 
-const playerBoard = new gameBoard();
+const playerBoard = new gameBoard('playerOne');
 
 module.exports = gameBoard;

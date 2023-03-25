@@ -10,6 +10,7 @@ const shipFactory = function (name, length, hits) {
   ship.hits = hits;
   ship.isSunk = sunkC();
   function sunkC() { if (ship.length === ship.hits) { return true; } return false; }
+
   return ship;
 };
 

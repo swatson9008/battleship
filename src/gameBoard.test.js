@@ -2,9 +2,10 @@
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-undef */
 /* eslint-disable new-cap */
+import shipFactory from './ship';
 import gameBoard from './gameBoard';
 
-const playerBoard = new gameBoard();
+const playerBoard = new gameBoard('playerOne');
 
 test('displays the correct length', () => {
   expect(playerBoard.gameB.length).toEqual(10);
