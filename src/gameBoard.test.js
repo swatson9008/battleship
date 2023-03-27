@@ -12,7 +12,7 @@ test('displays the correct length', () => {
 });
 
 test('displays the correct message', () => {
-  expect(playerBoard.placeShipH(carrier)).toBe(true);
+  expect(playerBoard.placeShipH(playerBoard.ships.carrier, 0)).toBe(true);
 });
 
 test('testing for a false answer', () => {

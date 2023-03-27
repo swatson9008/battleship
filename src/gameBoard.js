@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable max-len */
 /* eslint-disable no-use-before-define */
 /* eslint-disable func-names */
@@ -31,22 +32,24 @@ const gameBoard = function (player) {
     return boardArray;
   }
 
-  const carrier = shipFactory('carrier', 5, 0);
-  const battleShip = shipFactory('battleship', 4, 0);
-  const destroyer = shipFactory('destroyer', 3, 0);
-  const submarine = shipFactory('submarine', 3, 0);
-  const patrol = shipFactory('patrol', 2, 0);
+  const ships = {
+    carrier: shipFactory(5, 0),
+    battleship: shipFactory(4, 0),
+    destroyer: shipFactory(3, 0),
+    submarine: shipFactory(3, 0),
+    patrol: shipFactory(2, 0),
+  };
 
-  function placeShipH(ship) {
-    if (ship.length + currCordX + 1 < 10) { return true; } else { return false; }
+  function placeShipH(ships, currCordX) {
+    if (ships.this.length + currCordX + 1 < 10) { return true; } else { return false; }
   }
 
-  function placeShipV() {
+  function placeShipV(currCordY) {
     if (1 + currCordY + 1 < 10) { return true; } else { return false; }
   }
 
   return {
-    player, gameB, carrier, battleShip, destroyer, submarine, patrol, placeShipH, placeShipV,
+    player, gameB, ships, placeShipH, placeShipV,
   };
 };
 
