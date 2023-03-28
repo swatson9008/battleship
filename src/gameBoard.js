@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-shadow */
 /* eslint-disable max-len */
 /* eslint-disable no-use-before-define */
@@ -41,7 +42,12 @@ const gameBoard = function (player) {
   };
 
   function placeShipH(ships, currCordX) {
-    if (ships.length + currCordX + 1 < 10) { return true; } else { return false; }
+    if (ships.length + currCordX + 1 < 10) {
+      for (let i = 0; i < ships.length - 1; i++) {
+        gameB[i] = ships;
+      }
+      return gameB;
+    } else { return false; }
   }
 
   function placeShipV(ships, currCordY) {

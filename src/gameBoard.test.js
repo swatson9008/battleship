@@ -6,12 +6,14 @@ import gameBoard from './gameBoard';
 
 const playerBoard = new gameBoard('playerOne');
 
+playerBoard.placeShipH(playerBoard.ships.carrier, 0);
+
 test('displays the correct length', () => {
   expect(playerBoard.gameB.length).toEqual(10);
 });
 
-test('displays the correct message', () => {
-  expect(playerBoard.placeShipH(playerBoard.ships.carrier, 0)).toBe(true);
+test('places the ship objects in the board', () => {
+  expect(playerBoard.gameB[0]).toBe(playerBoard.ships.carrier);
 });
 
 test('testing for a false answer', () => {
