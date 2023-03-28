@@ -42,7 +42,7 @@ const gameBoard = function (player) {
   };
 
   function placeShipH(ships, currCordX, currCordY) {
-    if (ships.length + currCordX + 1 < 10) {
+    if (ships.length + currCordX + 1 < 10 && gameB[currCordX][currCordY] === null) {
       for (let i = 0; i < ships.length; i++) {
         gameB[currCordX][currCordY + i] = ships;
       }
@@ -51,7 +51,7 @@ const gameBoard = function (player) {
   }
 
   function placeShipV(ships, currCordX, currCordY) {
-    if (ships.length + currCordY + 1 < 10) {
+    if (ships.length + currCordY + 1 < 10 && gameB[currCordX][currCordY] === null) {
       for (let i = 0; i < ships.length; i++) {
         gameB[currCordX + i][currCordY] = ships;
       }
@@ -60,7 +60,7 @@ const gameBoard = function (player) {
   }
 
   function placeShipD(ships, currCordX, currCordY) {
-    if (ships.length + currCordY + 1 < 10) {
+    if (ships.length + currCordY + 1 < 10 && gameB[currCordX][currCordY] === null) {
       for (let i = 0; i < ships.length; i++) {
         gameB[currCordX + i][currCordY + i] = ships;
       }
@@ -73,40 +73,7 @@ const gameBoard = function (player) {
   };
 };
 
-/* export default class gameBoard {
-  constructor() {
-    this.gameB = this.createBoard();
-    this.missCount = [];
-    this.currCordX = 0;
-    this.currCordY = 0;
-  }
-
-  createBoard() {
-    const columns = 10;
-    const rows = 10;
-    const boardArray = [];
-    for (let i = 0; i < rows; i++) {
-      boardArray[i] = [];
-      for (let j = 0; j < columns; j++) {
-        boardArray[i][j] = [i, j];
-      }
-    }
-    return boardArray;
-  }
-
-  getBoard() {
-    return this.gameB;
-  }
-
-  placeShipH(ship) {
-    if (ship.length + this.currCordX + 1 < 10) { return true; } else { return false; }
-  }
-
-  placeShipV() {
-    if (1 + this.currCordY + 1 < 10) { return true; } else { return false; }
-  }
-
-  receiveAttack() {
+/* receiveAttack() {
     attackCord = boardArray[x][y];
     if (attackCord = NaN) {
       attackCord = 0;
