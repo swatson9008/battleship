@@ -41,11 +41,11 @@ const gameBoard = function (player) {
   };
 
   function placeShipH(ships, currCordX) {
-    if (ships.this.length + currCordX + 1 < 10) { return true; } else { return false; }
+    if (ships.length + currCordX + 1 < 10) { return true; } else { return false; }
   }
 
-  function placeShipV(currCordY) {
-    if (1 + currCordY + 1 < 10) { return true; } else { return false; }
+  function placeShipV(ships, currCordY) {
+    if (ships.length + currCordY + 1 < 10) { return true; } else { return false; }
   }
 
   return {

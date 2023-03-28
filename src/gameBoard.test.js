@@ -2,7 +2,6 @@
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-undef */
 /* eslint-disable new-cap */
-import shipFactory from './ship';
 import gameBoard from './gameBoard';
 
 const playerBoard = new gameBoard('playerOne');
@@ -17,5 +16,5 @@ test('displays the correct message', () => {
 
 test('testing for a false answer', () => {
   playerBoard.currCordY = 9;
-  expect(playerBoard.placeShipV()).toBe(false);
+  expect(playerBoard.placeShipV(playerBoard.ships.carrier)).toBe(false);
 });
