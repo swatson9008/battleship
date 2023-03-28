@@ -27,7 +27,7 @@ const gameBoard = function (player) {
     for (let i = 0; i < rows; i++) {
       boardArray[i] = [];
       for (let j = 0; j < columns; j++) {
-        boardArray[i][j] = [i, j];
+        boardArray[i][j] = null;
       }
     }
     return boardArray;
@@ -41,21 +41,35 @@ const gameBoard = function (player) {
     patrol: shipFactory(2, 0),
   };
 
-  function placeShipH(ships, currCordX) {
+  function placeShipH(ships, currCordX, currCordY) {
     if (ships.length + currCordX + 1 < 10) {
-      for (let i = 0; i < ships.length - 1; i++) {
-        gameB[i] = ships;
+      for (let i = 0; i < ships.length; i++) {
+        gameB[currCordX][currCordY + i] = ships;
       }
       return gameB;
     } else { return false; }
   }
 
-  function placeShipV(ships, currCordY) {
-    if (ships.length + currCordY + 1 < 10) { return true; } else { return false; }
+  function placeShipV(ships, currCordX, currCordY) {
+    if (ships.length + currCordY + 1 < 10) {
+      for (let i = 0; i < ships.length; i++) {
+        gameB[currCordX + i][currCordY] = ships;
+      }
+      return gameB;
+    } else { return false; }
+  }
+
+  function placeShipD(ships, currCordX, currCordY) {
+    if (ships.length + currCordY + 1 < 10) {
+      for (let i = 0; i < ships.length; i++) {
+        gameB[currCordX + i][currCordY + i] = ships;
+      }
+      return gameB;
+    } else { return false; }
   }
 
   return {
-    player, gameB, ships, placeShipH, placeShipV,
+    player, gameB, ships, placeShipH, placeShipV, placeShipD,
   };
 };
 
