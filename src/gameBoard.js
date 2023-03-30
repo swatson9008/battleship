@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 /* eslint-disable no-undef */
 /* eslint-disable no-shadow */
 /* eslint-disable max-len */
@@ -68,8 +69,15 @@ const gameBoard = function (player) {
     } else { return false; }
   }
 
+  function receiveAttack(currCordX, currCordY) {
+    if (gameB[currCordX][currCordY] != null) {
+      for (let i = 0; i < gameB[currCordX][currCordY].length; i++) {
+        if (ships.length === i) { ships.hit++; }
+      }
+    } else { missCount.push(currCordX, currCordY); }
+  }
   return {
-    player, gameB, ships, placeShipH, placeShipV, placeShipD,
+    player, gameB, ships, missCount, placeShipH, placeShipV, placeShipD, receiveAttack,
   };
 };
 
