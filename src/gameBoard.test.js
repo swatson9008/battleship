@@ -29,3 +29,8 @@ test('testing if the miss count works when receiving an attack with empty coords
   playerBoard.receiveAttack(0, 0);
   expect(playerBoard.missCount[0]).toBe(0, 0);
 });
+
+test('testing if the correct ship is hit with receiveAttack', () => {
+  playerBoard.receiveAttack(1, 1);
+  expect(playerBoard.ships.patrol.hits).toBe(1);
+});
