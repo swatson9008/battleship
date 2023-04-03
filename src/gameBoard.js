@@ -72,7 +72,7 @@ const gameBoard = function (player) {
   function receiveAttack(currCordX, currCordY) {
     if (gameB[currCordX][currCordY] != null) {
       for (let i = 0; i <= gameB[currCordX][currCordY].length; i++) {
-        if (ships.length === i) { ships.hit++; }
+        if (ships.length === i) { ships.hits++; }
       }
     } else { missCount.push(currCordX, currCordY); }
   }
