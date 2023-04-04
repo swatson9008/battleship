@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-empty */
 /* eslint-disable no-undef */
 /* eslint-disable no-shadow */
@@ -71,9 +72,7 @@ const gameBoard = function (player) {
 
   function receiveAttack(currCordX, currCordY) {
     if (gameB[currCordX][currCordY] != null) {
-      for (let i = 0; i <= gameB[currCordX][currCordY].length; i++) {
-        if (ships.length === i) { ships.hits++; }
-      }
+      gameB[currCordX][currCordY].hits++;
     } else { missCount.push(currCordX, currCordY); }
   }
   return {
