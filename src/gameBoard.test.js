@@ -34,3 +34,9 @@ test('testing if the correct ship is hit with receiveAttack', () => {
   playerBoard.receiveAttack(1, 1);
   expect(playerBoard.ships.patrol.hits).toBe(1);
 });
+
+test('testing if isSunk changes appropiately', () => {
+  playerBoard.receiveAttack(1, 1);
+  playerBoard.receiveAttack(1, 2);
+  expect(playerBoard.ships.patrol.isSunk).toBe(true);
+});

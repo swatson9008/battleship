@@ -11,4 +11,9 @@ describe('shipFactory stuff', () => {
     const patrol = shipFactory(2, 2);
     expect(patrol.isSunk).toBe(true);
   });
+  test('show if a ship has been sunk when changing hits', () => {
+    const patrol2 = shipFactory(2, 0);
+    patrol2.hits = 2;
+    expect(patrol2.isSunk).toBe(true);
+  });
 });

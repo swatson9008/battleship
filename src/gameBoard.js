@@ -80,15 +80,6 @@ const gameBoard = function (player) {
   };
 };
 
-/* receiveAttack() {
-    attackCord = boardArray[x][y];
-    if (attackCord = NaN) {
-      attackCord = 0;
-      updateBoard();
-    } else { this.missCount.push(attackCord); }
-  }
-} */
-
 const playerBoard = new gameBoard('playerOne');
 
 module.exports = gameBoard;
