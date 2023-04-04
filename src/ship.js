@@ -9,14 +9,9 @@ const shipFactory = function (length, hits) {
   ship.hits = hits;
   ship.isSunk = false;
   // set sunkC(hits) { if (ship.length === ship.hits) { return true; } return false; }
-  Object.defineProperty(ship, 'getHits', {
-    get() {
-      return this.hits;
-    },
-  });
-  Object.defineProperty(ship, 'getSunk', {
-    get(isSunk) {
-      if (ship.length === ship.hits) { return true; } return false;
+  Object.defineProperty(ship, 'isSunk', {
+    set() {
+      if (ship.length === ship.hits) { ship.isSunk = true; } ship.isSunk = false;
     },
   });
 
