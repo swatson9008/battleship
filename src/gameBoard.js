@@ -73,7 +73,6 @@ const gameBoard = function (player) {
   function receiveAttack(currCordX, currCordY) {
     if (gameB[currCordX][currCordY] != null) {
       gameB[currCordX][currCordY].hits++;
-      if (gameB[currCordX][currCordY].hits === gameB[currCordX][currCordY].length) { gameB[currCordX][currCordY].isSunk = true; }
     } else { missCount.push(currCordX, currCordY); }
   }
   return {
