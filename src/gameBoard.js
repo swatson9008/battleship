@@ -72,7 +72,7 @@ const gameBoard = function (player) {
 
   function receiveAttack(currCordX, currCordY) {
     if (gameB[currCordX][currCordY] != null) {
-      gameB[currCordX][currCordY].hits++;
+      gameB[currCordX][currCordY].hit();
     } else { missCount.push(currCordX, currCordY); }
   }
   return {
