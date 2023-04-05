@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-vars */
 /* eslint-disable func-names */
@@ -8,12 +9,12 @@ const shipFactory = function (length, hits) {
   ship.length = length;
   ship.hits = hits;
   ship.isSunk = false;
-  // set sunkC(hits) { if (ship.length === ship.hits) { return true; } return false; }
-  Object.defineProperty(ship, 'isSunk', {
-    set() {
-      if (ship.length === ship.hits) { ship.isSunk = true; } ship.isSunk = false;
-    },
-  });
+  ship.hit = function () {
+    this.hits++;
+    if (this.hits === this.length) {
+      this.isSunk = true;
+    }
+  };
 
   return ship;
 };

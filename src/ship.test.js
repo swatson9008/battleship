@@ -8,12 +8,8 @@ describe('shipFactory stuff', () => {
     expect(carrier.hits).toEqual(1);
   });
   test('show if a ship has been sunk', () => {
-    const patrol = shipFactory(2, 2);
+    const patrol = shipFactory(2, 1);
+    patrol.hit();
     expect(patrol.isSunk).toBe(true);
-  });
-  test('show if a ship has been sunk when changing hits', () => {
-    const patrol2 = shipFactory(2, 0);
-    patrol2.hits = 2;
-    expect(patrol2.isSunk).toBe(true);
   });
 });
