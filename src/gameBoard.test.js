@@ -40,3 +40,7 @@ test('testing if isSunk changes appropiately', () => {
   playerBoard.receiveAttack(1, 2);
   expect(playerBoard.ships.patrol.isSunk).toBe(true);
 });
+
+test('testing if ship is added to sunkShips', () => {
+  expect(playerBoard.sunkShips.length).toBe(1);
+});

@@ -1,3 +1,5 @@
+/* eslint-disable no-constant-condition */
+/* eslint-disable no-cond-assign */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-empty */
 /* eslint-disable no-undef */
@@ -21,6 +23,7 @@ const gameBoard = function (player) {
   const missCount = [];
   const currCordX = 0;
   const currCordY = 0;
+  const sunkShips = [];
 
   function createBoard() {
     const columns = 10;
@@ -44,8 +47,8 @@ const gameBoard = function (player) {
   };
 
   function placeShipH(ships, currCordX, currCordY) {
-    if (ships.length + currCordX + 1 < 10 && gameB[currCordX][currCordY] === null) {
-      for (let i = 0; i < ships.length; i++) {
+    if (ships.size + currCordX + 1 < 10 && gameB[currCordX][currCordY] === null) {
+      for (let i = 0; i < ships.size; i++) {
         gameB[currCordX][currCordY + i] = ships;
       }
       return gameB;
@@ -53,8 +56,8 @@ const gameBoard = function (player) {
   }
 
   function placeShipV(ships, currCordX, currCordY) {
-    if (ships.length + currCordY + 1 < 10 && gameB[currCordX][currCordY] === null) {
-      for (let i = 0; i < ships.length; i++) {
+    if (ships.size + currCordY + 1 < 10 && gameB[currCordX][currCordY] === null) {
+      for (let i = 0; i < ships.size; i++) {
         gameB[currCordX + i][currCordY] = ships;
       }
       return gameB;
@@ -62,8 +65,8 @@ const gameBoard = function (player) {
   }
 
   function placeShipD(ships, currCordX, currCordY) {
-    if (ships.length + currCordY + 1 < 10 && gameB[currCordX][currCordY] === null) {
-      for (let i = 0; i < ships.length; i++) {
+    if (ships.size + currCordY + 1 < 10 && gameB[currCordX][currCordY] === null) {
+      for (let i = 0; i < ships.size; i++) {
         gameB[currCordX + i][currCordY + i] = ships;
       }
       return gameB;
@@ -73,10 +76,17 @@ const gameBoard = function (player) {
   function receiveAttack(currCordX, currCordY) {
     if (gameB[currCordX][currCordY] != null) {
       gameB[currCordX][currCordY].hit();
+      sunkShipCheck(currCordX, currCordY);
     } else { missCount.push(currCordX, currCordY); }
   }
+
+  function sunkShipCheck(currCordX, currCordY) {
+    if (gameB[currCordX][currCordY].isSunk === true) {
+      sunkShips.push(gameB[currCordX][currCordY]);
+    }
+  }
   return {
-    player, gameB, ships, missCount, placeShipH, placeShipV, placeShipD, receiveAttack,
+    player, gameB, ships, missCount, sunkShips, placeShipH, placeShipV, placeShipD, receiveAttack, sunkShipCheck,
   };
 };
 

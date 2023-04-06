@@ -4,14 +4,14 @@
 /* eslint-disable func-names */
 /* eslint-disable max-len */
 // eslint-disable-next-line import/prefer-default-export
-const shipFactory = function (length, hits) {
+const shipFactory = function (size, hits) {
   const ship = {};
-  ship.length = length;
+  ship.size = size;
   ship.hits = hits;
   ship.isSunk = false;
   ship.hit = function () {
     this.hits++;
-    if (this.hits === this.length) {
+    if (this.hits === this.size) {
       this.isSunk = true;
     }
   };
