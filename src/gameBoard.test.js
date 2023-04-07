@@ -44,3 +44,7 @@ test('testing if isSunk changes appropiately', () => {
 test('testing if ship is added to sunkShips', () => {
   expect(playerBoard.sunkShips.length).toBe(1);
 });
+
+test('testing if function checks if a ship placement overlaps', () => {
+  expect(playerBoard.placeShipH(playerBoard.ships.carrier, 1, 1)).toBe(false);
+});
