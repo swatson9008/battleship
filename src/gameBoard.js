@@ -49,7 +49,12 @@ const gameBoard = function (player) {
   function placeShipH(ships, currCordX, currCordY) {
     if (ships.size + currCordX + 1 < 10 && gameB[currCordX][currCordY] === null) {
       for (let i = 0; i < ships.size; i++) {
-        gameB[currCordX][currCordY + i] = ships;
+        if (gameB[currCordX][i] !== null) {
+          return false;
+        }
+      }
+      for (let i = 0; i < ships.size; i++) {
+        gameB[currCordX][i] = ships;
       }
       return gameB;
     } else { return false; }
@@ -57,6 +62,11 @@ const gameBoard = function (player) {
 
   function placeShipV(ships, currCordX, currCordY) {
     if (ships.size + currCordY + 1 < 10 && gameB[currCordX][currCordY] === null) {
+      for (let i = 0; i < ships.size; i++) {
+        if (gameB[currCordX][i] !== null) {
+          return false;
+        }
+      }
       for (let i = 0; i < ships.size; i++) {
         gameB[currCordX + i][currCordY] = ships;
       }
