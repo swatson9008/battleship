@@ -100,6 +100,4 @@ const gameBoard = function (player) {
   };
 };
 
-const playerBoard = new gameBoard('playerOne');
-
 module.exports = gameBoard;
