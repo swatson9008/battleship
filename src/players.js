@@ -1,3 +1,6 @@
+/* eslint-disable import/no-mutable-exports */
+/* eslint-disable func-names */
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable import/no-import-module-exports */
 /* eslint-disable no-alert */
 /* eslint-disable no-plusplus */
@@ -14,17 +17,19 @@ const aiBoard = new gameBoard('playerTwo');
 
 let turnCount = 0;
 
+let p1AttackCord = [];
+
+let p2AttackCord = [];
+
 const player = [
 
-  attackCord = [],
-
   function chooseAttack(num1, num2) {
-    if (this.attackCord.includes([num1, num2])) { alert('not a valid coordinate'); }
+    if (p1AttackCord.includes([num1, num2])) { alert('not a valid coordinate'); }
     if (aiBoard.gameB[num1][num2] != null) {
-      this.attackCord.push([num1, num2]);
+      p1AttackCord.push([num1, num2]);
       aiBoard.receiveAttack(num1, num2);
     } else {
-      this.attackCord.push([num1, num2]);
+      p1AttackCord.push([num1, num2]);
       aiBoard.receiveAttack(num1, num2);
       turnCount++;
     }
@@ -32,31 +37,28 @@ const player = [
 
 ];
 
-const comPlayer = [
-
-  attackCord = [],
-
-  function turnDecide() {
-    randomAttack(playerBoard.gameB, 10, 10, 0, 9, 0, 9);
-    turnCount++;
-  },
-
+const comPlayer = function (name) {
   function randomAttack(arr, numRows, numCols, rowMin, rowMax, colMin, colMax) {
     const row = Math.floor(Math.random() * (rowMax - rowMin + 1) + rowMin);
     const col = Math.floor(Math.random() * (colMax - colMin + 1) + colMin);
-    if (this.attackCord.includes([row, col])) { randomAttack(playerBoard.gameB, 10, 10, 0, 9, 0, 9); }
+    if (p2AttackCord.includes([row, col])) { randomAttack(playerBoard.gameB, 10, 10, 0, 9, 0, 9); }
     if (playerBoard.gameB[col][row] != null) {
-      this.attackCord.push([col, row]);
+      p2AttackCord.push([col, row]);
       playerBoard.receiveAttack(col, row);
       randomAttack(playerBoard.gameB, 10, 10, 0, 9, 0, 9);
     } else {
-      this.attackCord.push([col, row]);
+      p2AttackCord.push([col, row]);
       playerBoard.receiveAttack(col, row);
     }
-  },
+  }
+  function turnDecide() {
+    randomAttack(playerBoard.gameB, 10, 10, 0, 9, 0, 9);
+    turnCount++;
+  }
 
-];
+  return { randomAttack, turnDecide };
+};
 
-module.exports = player;
-module.exports = comPlayer;
-module.exports = turnCount;
+export {
+  player, comPlayer, turnCount, p1AttackCord, p2AttackCord, playerBoard, aiBoard,
+};
