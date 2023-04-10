@@ -6,10 +6,12 @@
 
 import gameBoard from './gameBoard';
 import {
-  player, comPlayer, turnCount, p1AttackCord, p2AttackCord, playerBoard, aiBoard,
+  playerOne, comPlayer, turnCount,
 } from './players';
 
 const aiPlayer = comPlayer();
+const playerBoard = new gameBoard('playerOne');
+const aiBoard = new gameBoard('playerTwo');
 
 test('displays the correct turn count', () => {
   aiPlayer.turnDecide();
@@ -18,5 +20,5 @@ test('displays the correct turn count', () => {
 
 test('if coordinate is added to attack cord', () => {
   aiPlayer.turnDecide();
-  expect(p2AttackCord[0]).toEqual([expect.any(Number), expect.any(Number)]);
+  expect(aiPlayer.p2AttackCord[0]).toEqual([expect.any(Number), expect.any(Number)]);
 });
