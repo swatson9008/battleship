@@ -31,5 +31,5 @@ test('if coordinate is added to attack cord', () => {
 
 test('if error shows up if the same coord is selected twice for the human player', () => {
   humanPlayer.chooseAttack(1, 1);
-  expect(hPlayer.chooseAttack(1, 1)).toThrow('invalid coordinate');
+  expect(humanPlayer.chooseAttack(1, 1)).toBe('invalid coordinate');
 });
