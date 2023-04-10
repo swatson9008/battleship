@@ -1,3 +1,5 @@
+/* eslint-disable no-else-return */
+/* eslint-disable consistent-return */
 /* eslint-disable import/no-mutable-exports */
 /* eslint-disable func-names */
 /* eslint-disable import/prefer-default-export */
@@ -17,11 +19,11 @@ const aiBoard = new gameBoard('playerTwo');
 
 let turnCount = 0;
 
-const playerOne = function (name) {
+const hPlayer = function () {
   const p1AttackCord = [];
 
   function chooseAttack(num1, num2) {
-    if (p1AttackCord.includes([num1, num2])) { alert('not a valid coordinate'); }
+    if (p1AttackCord.some([num1, num2]) || num1 > 10 || num2 > 10) { throw new Error('invalid coordinate'); }
     if (aiBoard.gameB[num1][num2] != null) {
       p1AttackCord.push([num1, num2]);
       aiBoard.receiveAttack(num1, num2);
@@ -35,8 +37,9 @@ const playerOne = function (name) {
   return { chooseAttack, p1AttackCord };
 };
 
-const comPlayer = function (name) {
+const comPlayer = function () {
   let p2AttackCord = [];
+
   function randomAttack(arr, numRows, numCols, rowMin, rowMax, colMin, colMax) {
     const row = Math.floor(Math.random() * (rowMax - rowMin + 1) + rowMin);
     const col = Math.floor(Math.random() * (colMax - colMin + 1) + colMin);
@@ -59,5 +62,5 @@ const comPlayer = function (name) {
 };
 
 export {
-  playerOne, comPlayer, turnCount,
+  hPlayer, comPlayer, turnCount,
 };

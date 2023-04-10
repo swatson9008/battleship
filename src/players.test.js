@@ -6,10 +6,11 @@
 
 import gameBoard from './gameBoard';
 import {
-  playerOne, comPlayer, turnCount,
+  hPlayer, comPlayer, turnCount,
 } from './players';
 
 const aiPlayer = comPlayer();
+const humanPlayer = hPlayer();
 const playerBoard = new gameBoard('playerOne');
 const aiBoard = new gameBoard('playerTwo');
 
@@ -21,4 +22,9 @@ test('displays the correct turn count', () => {
 test('if coordinate is added to attack cord', () => {
   aiPlayer.turnDecide();
   expect(aiPlayer.p2AttackCord[0]).toEqual([expect.any(Number), expect.any(Number)]);
+});
+
+test('if error shows up if the same coord is selected twice for the human player', () => {
+  humanPlayer.chooseAttack(1, 1);
+  expect(humanPlayer.chooseAttack(1, 1)).toThrowError('invalid coordinate');
 });
