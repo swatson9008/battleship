@@ -24,7 +24,12 @@ test('if coordinate is added to attack cord', () => {
   expect(aiPlayer.p2AttackCord[0]).toEqual([expect.any(Number), expect.any(Number)]);
 });
 
+test('if coordinate is added to attack cord', () => {
+  humanPlayer.chooseAttack(1, 2);
+  expect(humanPlayer.p1AttackCord[0]).toEqual([expect.any(Number), expect.any(Number)]);
+});
+
 test('if error shows up if the same coord is selected twice for the human player', () => {
   humanPlayer.chooseAttack(1, 1);
-  expect(humanPlayer.chooseAttack(1, 1)).toThrowError('invalid coordinate');
+  expect(hPlayer.chooseAttack(1, 1)).toThrow('invalid coordinate');
 });

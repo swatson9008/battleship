@@ -19,11 +19,11 @@ const aiBoard = new gameBoard('playerTwo');
 
 let turnCount = 0;
 
-const hPlayer = function () {
+const hPlayer = function (name) {
   const p1AttackCord = [];
 
   function chooseAttack(num1, num2) {
-    if (p1AttackCord.some([num1, num2]) || num1 > 10 || num2 > 10) { throw new Error('invalid coordinate'); }
+    if (p1AttackCord.find((element) => [num1, num2]) || num1 > 10 || num2 > 10) { throw new Error('invalid coordinate'); }
     if (aiBoard.gameB[num1][num2] != null) {
       p1AttackCord.push([num1, num2]);
       aiBoard.receiveAttack(num1, num2);
@@ -37,7 +37,7 @@ const hPlayer = function () {
   return { chooseAttack, p1AttackCord };
 };
 
-const comPlayer = function () {
+const comPlayer = function (name) {
   let p2AttackCord = [];
 
   function randomAttack(arr, numRows, numCols, rowMin, rowMax, colMin, colMax) {
