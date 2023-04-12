@@ -19,6 +19,11 @@ test('displays the correct turn count', () => {
   expect(turnCount).toEqual(1);
 });
 
+test('displays the correct turn count', () => {
+  humanPlayer.chooseAttack(2, 2);
+  expect(turnCount).toEqual(2);
+});
+
 test('if coordinate is added to attack cord', () => {
   aiPlayer.turnDecide();
   expect(aiPlayer.p2AttackCord[0]).toEqual([expect.any(Number), expect.any(Number)]);

@@ -43,7 +43,7 @@ const comPlayer = function (name) {
   function randomAttack(arr, numRows, numCols, rowMin, rowMax, colMin, colMax) {
     const row = Math.floor(Math.random() * (rowMax - rowMin + 1) + rowMin);
     const col = Math.floor(Math.random() * (colMax - colMin + 1) + colMin);
-    if (p2AttackCord.includes([row, col])) { randomAttack(playerBoard.gameB, 10, 10, 0, 9, 0, 9); }
+    if (p2AttackCord.some((element) => element[0] === col && element[1] === row)) { randomAttack(playerBoard.gameB, 10, 10, 0, 9, 0, 9); }
     if (playerBoard.gameB[col][row] != null) {
       p2AttackCord.push([col, row]);
       playerBoard.receiveAttack(col, row);
