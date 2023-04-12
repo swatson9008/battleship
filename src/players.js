@@ -20,36 +20,36 @@ const aiBoard = new gameBoard('playerTwo');
 let turnCount = 0;
 
 const hPlayer = function (name) {
-  const p1AttackCord = [];
+  let attackCord = [];
 
   function chooseAttack(num1, num2) {
-    if (p1AttackCord.find((element) => [num1, num2]) || num1 > 10 || num2 > 10) { return 'invalid coordinate'; }
+    if (attackCord.find((element) => [num1, num2]) || num1 > 10 || num2 > 10) { return 'invalid coordinate'; }
     if (aiBoard.gameB[num1][num2] != null) {
-      p1AttackCord.push([num1, num2]);
+      attackCord.push([num1, num2]);
       aiBoard.receiveAttack(num1, num2);
     } else {
-      p1AttackCord.push([num1, num2]);
+      attackCord.push([num1, num2]);
       aiBoard.receiveAttack(num1, num2);
       turnCount++;
     }
   }
 
-  return { chooseAttack, p1AttackCord };
+  return { chooseAttack, attackCord };
 };
 
 const comPlayer = function (name) {
-  let p2AttackCord = [];
+  let attackCord = [];
 
   function randomAttack(arr, numRows, numCols, rowMin, rowMax, colMin, colMax) {
     const row = Math.floor(Math.random() * (rowMax - rowMin + 1) + rowMin);
     const col = Math.floor(Math.random() * (colMax - colMin + 1) + colMin);
-    if (p2AttackCord.some((element) => element[0] === col && element[1] === row)) { randomAttack(playerBoard.gameB, 10, 10, 0, 9, 0, 9); }
+    if (attackCord.some((element) => element[0] === col && element[1] === row)) { randomAttack(playerBoard.gameB, 10, 10, 0, 9, 0, 9); }
     if (playerBoard.gameB[col][row] != null) {
-      p2AttackCord.push([col, row]);
+      attackCord.push([col, row]);
       playerBoard.receiveAttack(col, row);
       randomAttack(playerBoard.gameB, 10, 10, 0, 9, 0, 9);
     } else {
-      p2AttackCord.push([col, row]);
+      attackCord.push([col, row]);
       playerBoard.receiveAttack(col, row);
     }
   }
@@ -58,7 +58,7 @@ const comPlayer = function (name) {
     turnCount++;
   }
 
-  return { p2AttackCord, randomAttack, turnDecide };
+  return { attackCord, randomAttack, turnDecide };
 };
 
 export {

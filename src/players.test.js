@@ -26,12 +26,12 @@ test('displays the correct turn count', () => {
 
 test('if coordinate is added to attack cord', () => {
   aiPlayer.turnDecide();
-  expect(aiPlayer.p2AttackCord[0]).toEqual([expect.any(Number), expect.any(Number)]);
+  expect(aiPlayer.attackCord[0]).toEqual([expect.any(Number), expect.any(Number)]);
 });
 
 test('if coordinate is added to attack cord', () => {
   humanPlayer.chooseAttack(1, 2);
-  expect(humanPlayer.p1AttackCord[0]).toEqual([expect.any(Number), expect.any(Number)]);
+  expect(humanPlayer.attackCord[0]).toEqual([expect.any(Number), expect.any(Number)]);
 });
 
 test('if error shows up if the same coord is selected twice for the human player', () => {
