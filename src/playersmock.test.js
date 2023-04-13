@@ -21,15 +21,16 @@ let turnCount = 0;
 const comPlayer = function (name) {
   const attackCord = [];
 
-  function randomAttack(col, row) {
-    if (attackCord.find((element) => [col, row]) || col > 10 || row > 10) { return 'try again'; }
-    if (playerBoard.gameB[col][row] != null) {
-      attackCord.push([col, row]);
-      playerBoard.receiveAttack(col, row);
+  function randomAttack(row, col) {
+    if (attackCord.some((element) => element[0] === col && element[1] === row)) { return 'try again'; }
+    if (playerBoard.gameB[row][col] != null) {
+      attackCord.push([row, col]);
+      playerBoard.receiveAttack(row, col);
       return 'good job';
     } else {
-      attackCord.push([col, row]);
-      playerBoard.receiveAttack(col, row);
+      attackCord.push([row, col]);
+      playerBoard.receiveAttack(row, col);
+      return 'you missed';
     }
   }
 
@@ -47,4 +48,8 @@ test('displays the correct message', () => {
   aiPlayer.randomAttack(1, 1);
   aiPlayer.randomAttack(2, 2);
   expect(aiPlayer.randomAttack(2, 2)).toBe('try again');
+});
+
+test('displays the correct message for a miss', () => {
+  expect(aiPlayer.randomAttack(0, 0)).toBe('you missed');
 });
