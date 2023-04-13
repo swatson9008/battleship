@@ -54,7 +54,7 @@ const gameBoard = function (player) {
         }
       }
       for (let i = 0; i < ships.size; i++) {
-        gameB[currCordX][i] = ships;
+        gameB[currCordX][currCordY + i] = ships;
       }
       return gameB;
     } else { return false; }
