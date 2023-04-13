@@ -95,8 +95,13 @@ const gameBoard = function (player) {
       sunkShips.push(gameB[currCordX][currCordY]);
     }
   }
+
+  function reportAllSunk() {
+    if (sunkShips.length === 5) { return true; } else { return false; }
+  }
+
   return {
-    player, gameB, ships, missCount, sunkShips, placeShipH, placeShipV, placeShipD, receiveAttack, sunkShipCheck,
+    player, gameB, ships, missCount, sunkShips, placeShipH, placeShipV, placeShipD, receiveAttack, sunkShipCheck, reportAllSunk,
   };
 };
 

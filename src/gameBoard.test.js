@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable import/no-duplicates */
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-undef */
@@ -47,4 +48,13 @@ test('testing if ship is added to sunkShips', () => {
 
 test('testing if function checks if a ship placement overlaps', () => {
   expect(playerBoard.placeShipH(playerBoard.ships.carrier, 1, 1)).toBe(false);
+});
+
+test('testing if reportAllSunk is correct', () => {
+  expect(playerBoard.reportAllSunk()).toBe(false);
+});
+
+test('testing if reportAllSunk is correct when all ships sink', () => {
+  playerBoard.sunkShips.push(playerBoard.ships.carrier, playerBoard.ships.battleShip, playerBoard.ships.destroyer, playerBoard.ships.submarine);
+  expect(playerBoard.reportAllSunk()).toBe(true);
 });
