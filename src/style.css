@@ -1,0 +1,13 @@
+
+#playerB, #aiB {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    max-width: 600px;
+}
+
+.boardLayout > div {
+    border: 1px solid black;
+    padding: 5px;
+}
