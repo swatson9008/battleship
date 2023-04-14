@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 /* eslint-disable prefer-const */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-unused-vars */
