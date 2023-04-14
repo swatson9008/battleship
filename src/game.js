@@ -9,3 +9,9 @@ const turnCount = 0;
 
 const playerBoard = new gameBoard('playerOne');
 const aiBoard = new gameBoard('playerTwo');
+
+const aiPlayer = comPlayer();
+const humanPlayer = hPlayer();
+
+playerBoard.placeShipH(playerBoard.ships.carrier, 1, 1);
+

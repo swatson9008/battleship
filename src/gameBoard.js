@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-cond-assign */
 /* eslint-disable no-param-reassign */
