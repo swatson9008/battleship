@@ -588,7 +588,27 @@ var __webpack_exports__ = {};
   \**********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ "./src/style.css");
+/* eslint-disable prefer-const */
+/* eslint-disable no-plusplus */
+/* eslint-disable no-unused-vars */
 
+const playerBField = document.getElementById('playerB');
+const aiBField = document.getElementById('aiB');
+function createplayerBoard(boardField) {
+  let rowId = 0;
+  for (let i = 0; i < 100; i++) {
+    let columnId = i % 10;
+    const newItem = document.createElement('div');
+    newItem.id = `${rowId}${columnId}`;
+    newItem.classList.add('boardSpace');
+    boardField.appendChild(newItem);
+    if (columnId === 9) {
+      rowId++;
+    }
+  }
+}
+createplayerBoard(playerBField);
+createplayerBoard(aiBField);
 })();
 
 /******/ })()
