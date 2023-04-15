@@ -10,4 +10,6 @@
 .boardLayout > div {
     border: 1px solid black;
     padding: 5px;
+    background-color:rgb(68, 182, 216);
+    min-height: 50px;
 }
