@@ -2,6 +2,263 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/gameBoard.js":
+/*!**************************!*\
+  !*** ./src/gameBoard.js ***!
+  \**************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ship__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ship */ "./src/ship.js");
+/* module decorator */ module = __webpack_require__.hmd(module);
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable no-constant-condition */
+/* eslint-disable no-cond-assign */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-empty */
+/* eslint-disable no-undef */
+/* eslint-disable no-shadow */
+/* eslint-disable max-len */
+/* eslint-disable no-use-before-define */
+/* eslint-disable func-names */
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/no-duplicates */
+/* eslint-disable no-else-return */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable import/no-import-module-exports */
+/* eslint-disable class-methods-use-this */
+/* eslint-disable new-cap */
+/* eslint-disable no-plusplus */
+
+
+const gameBoard = function (player) {
+  const gameB = createBoard();
+  const missCount = [];
+  const currCordX = 0;
+  const currCordY = 0;
+  const sunkShips = [];
+  function createBoard() {
+    const columns = 10;
+    const rows = 10;
+    const boardArray = [];
+    for (let i = 0; i < rows; i++) {
+      boardArray[i] = [];
+      for (let j = 0; j < columns; j++) {
+        boardArray[i][j] = null;
+      }
+    }
+    return boardArray;
+  }
+  const ships = {
+    carrier: (0,_ship__WEBPACK_IMPORTED_MODULE_0__["default"])(5, 0),
+    battleship: (0,_ship__WEBPACK_IMPORTED_MODULE_0__["default"])(4, 0),
+    destroyer: (0,_ship__WEBPACK_IMPORTED_MODULE_0__["default"])(3, 0),
+    submarine: (0,_ship__WEBPACK_IMPORTED_MODULE_0__["default"])(3, 0),
+    patrol: (0,_ship__WEBPACK_IMPORTED_MODULE_0__["default"])(2, 0)
+  };
+  function placeShipH(ships, currCordX, currCordY) {
+    if (ships.size + currCordY - 2 < 10 && gameB[currCordX][currCordY] === null) {
+      for (let i = 0; i < ships.size; i++) {
+        if (gameB[currCordX][currCordY + i] !== null) {
+          return false;
+        }
+      }
+      for (let i = 0; i < ships.size; i++) {
+        gameB[currCordX][currCordY + i] = ships;
+      }
+      return gameB;
+    } else {
+      return false;
+    }
+  }
+  function placeShipV(ships, currCordX, currCordY) {
+    if (ships.size + currCordX - 2 < 10 && gameB[currCordX][currCordY] === null) {
+      for (let i = 0; i < ships.size; i++) {
+        if (gameB[currCordX + i][currCordY] !== null) {
+          return false;
+        }
+      }
+      for (let i = 0; i < ships.size; i++) {
+        gameB[currCordX + i][currCordY] = ships;
+      }
+      return gameB;
+    } else {
+      return false;
+    }
+  }
+  function placeShipD(ships, currCordX, currCordY) {
+    if (ships.size + currCordY + 1 < 10 && gameB[currCordX][currCordY] === null) {
+      for (let i = 0; i < ships.size; i++) {
+        gameB[currCordX + i][currCordY + i] = ships;
+      }
+      return gameB;
+    } else {
+      return false;
+    }
+  }
+  function receiveAttack(currCordX, currCordY) {
+    if (gameB[currCordX][currCordY] != null) {
+      gameB[currCordX][currCordY].hit();
+      sunkShipCheck(currCordX, currCordY);
+    } else {
+      missCount.push(currCordX, currCordY);
+    }
+  }
+  function sunkShipCheck(currCordX, currCordY) {
+    if (gameB[currCordX][currCordY].isSunk === true) {
+      sunkShips.push(gameB[currCordX][currCordY]);
+    }
+  }
+  function reportAllSunk() {
+    if (sunkShips.length === 5) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  return {
+    player,
+    gameB,
+    ships,
+    missCount,
+    sunkShips,
+    placeShipH,
+    placeShipV,
+    placeShipD,
+    receiveAttack,
+    sunkShipCheck,
+    reportAllSunk
+  };
+};
+module.exports = gameBoard;
+
+/***/ }),
+
+/***/ "./src/players.js":
+/*!************************!*\
+  !*** ./src/players.js ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "comPlayer": () => (/* binding */ comPlayer),
+/* harmony export */   "hPlayer": () => (/* binding */ hPlayer),
+/* harmony export */   "turnCount": () => (/* binding */ turnCount)
+/* harmony export */ });
+/* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameBoard */ "./src/gameBoard.js");
+/* eslint-disable no-else-return */
+/* eslint-disable consistent-return */
+/* eslint-disable import/no-mutable-exports */
+/* eslint-disable func-names */
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable import/no-import-module-exports */
+/* eslint-disable no-alert */
+/* eslint-disable no-plusplus */
+/* eslint-disable max-len */
+/* eslint-disable no-undef */
+/* eslint-disable new-cap */
+/* eslint-disable prefer-const */
+/* eslint-disable no-unused-vars */
+
+
+const playerBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_0__["default"]('playerOne');
+const aiBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_0__["default"]('playerTwo');
+let turnCount = 0;
+const hPlayer = function (name) {
+  let attackCord = [];
+  function chooseAttack(row, col) {
+    if (attackCord.find(element => [row, col]) || col > 10 || row > 10) {
+      return 'invalid coordinate';
+    }
+    if (aiBoard.gameB[row][col] != null) {
+      attackCord.push([row, col]);
+      aiBoard.receiveAttack(row, col);
+    } else {
+      attackCord.push([row, col]);
+      aiBoard.receiveAttack(row, col);
+      turnCount++;
+    }
+  }
+  return {
+    chooseAttack,
+    attackCord
+  };
+};
+const comPlayer = function (name) {
+  let attackCord = [];
+  function randomAttack(arr, rowMin, rowMax, colMin, colMax) {
+    const row = Math.floor(Math.random() * (rowMax - rowMin + 1) + rowMin);
+    const col = Math.floor(Math.random() * (colMax - colMin + 1) + colMin);
+    if (attackCord.some(element => element[0] === col && element[1] === row)) {
+      randomAttack(playerBoard.gameB, 10, 10, 0, 9, 0, 9);
+    }
+    if (playerBoard.gameB[row][col] != null) {
+      attackCord.push([row, col]);
+      playerBoard.receiveAttack(row, col);
+      randomAttack(playerBoard.gameB, 0, 9, 0, 9);
+    } else {
+      attackCord.push([row, col]);
+      playerBoard.receiveAttack(row, col);
+    }
+  }
+  function turnDecide() {
+    randomAttack(playerBoard.gameB, 0, 9, 0, 9);
+    turnCount++;
+  }
+  return {
+    attackCord,
+    randomAttack,
+    turnDecide
+  };
+};
+
+
+/***/ }),
+
+/***/ "./src/ship.js":
+/*!*********************!*\
+  !*** ./src/ship.js ***!
+  \*********************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "battleShip": () => (/* binding */ battleShip),
+/* harmony export */   "carrier": () => (/* binding */ carrier),
+/* harmony export */   "destroyer": () => (/* binding */ destroyer),
+/* harmony export */   "patrol": () => (/* binding */ patrol),
+/* harmony export */   "submarine": () => (/* binding */ submarine)
+/* harmony export */ });
+/* module decorator */ module = __webpack_require__.hmd(module);
+/* eslint-disable no-plusplus */
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-unused-vars */
+/* eslint-disable func-names */
+/* eslint-disable max-len */
+// eslint-disable-next-line import/prefer-default-export
+const shipFactory = function (size, hits) {
+  const ship = {};
+  ship.size = size;
+  ship.hits = hits;
+  ship.isSunk = false;
+  ship.hit = function () {
+    this.hits++;
+    if (this.hits === this.size) {
+      this.isSunk = true;
+    }
+  };
+  return ship;
+};
+const carrier = shipFactory('carrier', 5, 0);
+const battleShip = shipFactory('battleship', 4, 0);
+const destroyer = shipFactory('destroyer', 3, 0);
+const submarine = shipFactory('submarine', 3, 0);
+const patrol = shipFactory('patrol', 2, 0);
+module.exports = shipFactory;
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./src/style.css":
 /*!*************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./src/style.css ***!
@@ -522,12 +779,15 @@ module.exports = styleTagTransform;
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			id: moduleId,
-/******/ 			// no module.loaded needed
+/******/ 			loaded: false,
 /******/ 			exports: {}
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -555,6 +815,21 @@ module.exports = styleTagTransform;
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/harmony module decorator */
+/******/ 	(() => {
+/******/ 		__webpack_require__.hmd = (module) => {
+/******/ 			module = Object.create(module);
+/******/ 			if (!module.children) module.children = [];
+/******/ 			Object.defineProperty(module, 'exports', {
+/******/ 				enumerable: true,
+/******/ 				set: () => {
+/******/ 					throw new Error('ES Modules may not assign module.exports or exports.*, Use ESM export syntax, instead: ' + module.id);
+/******/ 				}
+/******/ 			});
+/******/ 			return module;
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -588,10 +863,16 @@ var __webpack_exports__ = {};
   \**********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ "./src/style.css");
+/* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gameBoard */ "./src/gameBoard.js");
+/* harmony import */ var _players__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./players */ "./src/players.js");
+/* eslint-disable no-undef */
+/* eslint-disable no-alert */
 /* eslint-disable new-cap */
 /* eslint-disable prefer-const */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-unused-vars */
+
+
 
 const playerBField = document.getElementById('playerB');
 const aiBField = document.getElementById('aiB');
@@ -608,8 +889,14 @@ function createplayerBoard(boardField) {
     }
   }
 }
-createplayerBoard(playerBField);
 createplayerBoard(aiBField);
+const boardCells = document.querySelectorAll('.boardSpace');
+boardCells.forEach(div => {
+  div.addEventListener('click', () => {
+    alert(parseInt(div.id.charAt(0), 10));
+  });
+});
+createplayerBoard(playerBField);
 })();
 
 /******/ })()

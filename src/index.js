@@ -1,8 +1,14 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-alert */
 /* eslint-disable new-cap */
 /* eslint-disable prefer-const */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-unused-vars */
 import './style.css';
+import gameBoard from './gameBoard';
+import {
+  hPlayer, comPlayer, turnCount,
+} from './players';
 
 const playerBField = document.getElementById('playerB');
 
@@ -20,6 +26,14 @@ function createplayerBoard(boardField) {
   }
 }
 
-createplayerBoard(playerBField);
-
 createplayerBoard(aiBField);
+
+const boardCells = document.querySelectorAll('.boardSpace');
+
+boardCells.forEach((div) => {
+  div.addEventListener('click', () => {
+    alert(parseInt(div.id.charAt(0), 10));
+  });
+});
+
+createplayerBoard(playerBField);
