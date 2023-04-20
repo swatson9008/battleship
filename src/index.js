@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
 /* eslint-disable no-alert */
@@ -57,7 +58,11 @@ boardCells.forEach((div) => {
     console.log(aiBoard.gameB);
     console.log(turnCount);
     console.log(humanPlayer.attackCord);
+    console.log(parseInt(div.id.charAt(0)));
+    console.log(parseInt(div.id.charAt(1)));
   });
 });
 
 createplayerBoard(playerBField);
+
+console.log(aiBoard.gameB);

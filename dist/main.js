@@ -849,6 +849,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ "./src/style.css");
 /* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gameBoard */ "./src/gameBoard.js");
 /* harmony import */ var _players__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./players */ "./src/players.js");
+/* eslint-disable radix */
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
 /* eslint-disable no-alert */
@@ -897,9 +898,12 @@ boardCells.forEach(div => {
     console.log(aiBoard.gameB);
     console.log(turnCount);
     console.log(humanPlayer.attackCord);
+    console.log(parseInt(div.id.charAt(0)));
+    console.log(parseInt(div.id.charAt(1)));
   });
 });
 createplayerBoard(playerBField);
+console.log(aiBoard.gameB);
 })();
 
 /******/ })()
