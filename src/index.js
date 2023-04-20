@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable radix */
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
@@ -32,11 +33,10 @@ createplayerBoard(aiBField);
 
 const boardCells = document.querySelectorAll('.boardSpace');
 
-const aiPlayer = comPlayer();
-const humanPlayer = hPlayer();
-
-const playerBoard = new gameBoard('playerOne');
-const aiBoard = new gameBoard('playerTwo');
+let playerBoard = new gameBoard('playerOne');
+let aiBoard = new gameBoard('playerTwo');
+let aiPlayer = comPlayer(playerBoard);
+let humanPlayer = hPlayer(aiBoard);
 
 let turnCount = 0;
 
@@ -54,8 +54,9 @@ aiBoard.placeShipH(aiBoard.ships.carrier, 7, 2);
 
 boardCells.forEach((div) => {
   div.addEventListener('click', () => {
-    humanPlayer.chooseAttack(parseInt(div.id.charAt(0), 10), parseInt(div.id.charAt(1), 10));
+    humanPlayer.chooseAttack(aiBoard, parseInt(div.id.charAt(0), 10), parseInt(div.id.charAt(1), 10));
     console.log(aiBoard.gameB);
+    turnCount++;
     console.log(turnCount);
     console.log(humanPlayer.attackCord);
     console.log(parseInt(div.id.charAt(0)));

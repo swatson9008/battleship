@@ -6,42 +6,38 @@
 
 import gameBoard from './gameBoard';
 import {
-  hPlayer, comPlayer, turnCount,
+  hPlayer, comPlayer,
 } from './players';
 
-const aiPlayer = comPlayer();
-const humanPlayer = hPlayer();
-const playerBoard = new gameBoard('playerOne');
-const aiBoard = new gameBoard('playerTwo');
+let playerBoard = new gameBoard('playerOne');
+let aiBoard = new gameBoard('playerTwo');
+let aiPlayer = comPlayer(playerBoard);
+let humanPlayer = hPlayer(aiBoard);
 
-aiBoard.placeShipV(aiBoard.ships.carrier, 0, 0);
-
-test('displays the correct turn count', () => {
-  aiPlayer.turnDecide();
-  expect(turnCount).toEqual(1);
-});
-
-test('displays the correct turn count', () => {
-  humanPlayer.chooseAttack(2, 2);
-  expect(turnCount).toEqual(2);
+beforeEach(() => {
+  playerBoard = new gameBoard('playerOne');
+  aiBoard = new gameBoard('playerTwo');
+  aiPlayer = comPlayer(playerBoard);
+  humanPlayer = hPlayer(aiBoard);
 });
 
 test('if coordinate is added to attack cord', () => {
-  aiPlayer.turnDecide();
+  aiPlayer.randomAttack(playerBoard, 0, 9, 0, 9);
   expect(aiPlayer.attackCord[0]).toEqual([expect.any(Number), expect.any(Number)]);
 });
 
 test('if coordinate is added to attack cord', () => {
-  humanPlayer.chooseAttack(1, 2);
+  humanPlayer.chooseAttack(aiBoard, 1, 2);
   expect(humanPlayer.attackCord[0]).toEqual([expect.any(Number), expect.any(Number)]);
 });
 
 test('if hits is calculated correctly', () => {
-  humanPlayer.chooseAttack(0, 0);
+  aiBoard.placeShipV(aiBoard.ships.carrier, 0, 0);
+  humanPlayer.chooseAttack(aiBoard, 0, 0);
   expect(aiBoard.ships.carrier.hits).toEqual(1);
 });
 
 test('if error shows up if the same coord is selected twice for the human player', () => {
-  humanPlayer.chooseAttack(1, 1);
-  expect(humanPlayer.chooseAttack(1, 1)).toBe('invalid coordinate');
+  humanPlayer.chooseAttack(aiBoard, 1, 1);
+  expect(humanPlayer.chooseAttack(aiBoard, 1, 1)).toBe('invalid coordinate');
 });

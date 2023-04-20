@@ -17,20 +17,17 @@ import gameBoard from './gameBoard';
 const playerBoard = new gameBoard('playerOne');
 const aiBoard = new gameBoard('playerTwo');
 
-let turnCount = 0;
-
 const hPlayer = function (name) {
   let attackCord = [];
 
-  function chooseAttack(row, col) {
+  function chooseAttack(board, row, col) {
     if (attackCord.find((element) => [row, col]) || col > 10 || row > 10) { return 'invalid coordinate'; }
-    if (aiBoard.gameB[row][col] != null) {
+    if (board.gameB[row][col] != null) {
       attackCord.push([row, col]);
-      aiBoard.receiveAttack(row, col);
+      board.receiveAttack(row, col);
     } else {
       attackCord.push([row, col]);
-      aiBoard.receiveAttack(row, col);
-      turnCount++;
+      board.receiveAttack(row, col);
     }
   }
 
@@ -40,27 +37,23 @@ const hPlayer = function (name) {
 const comPlayer = function (name) {
   let attackCord = [];
 
-  function randomAttack(arr, rowMin, rowMax, colMin, colMax) {
+  function randomAttack(board, rowMin, rowMax, colMin, colMax) {
     const row = Math.floor(Math.random() * (rowMax - rowMin + 1) + rowMin);
     const col = Math.floor(Math.random() * (colMax - colMin + 1) + colMin);
-    if (attackCord.some((element) => element[0] === col && element[1] === row)) { randomAttack(playerBoard.gameB, 10, 10, 0, 9, 0, 9); }
-    if (playerBoard.gameB[row][col] != null) {
+    if (attackCord.some((element) => element[0] === col && element[1] === row)) { randomAttack(board.gameB, 0, 9, 0, 9); }
+    if (board.gameB[row][col] != null) {
       attackCord.push([row, col]);
-      playerBoard.receiveAttack(row, col);
-      randomAttack(playerBoard.gameB, 0, 9, 0, 9);
+      board.receiveAttack(row, col);
+      randomAttack(board.gameB, 0, 9, 0, 9);
     } else {
       attackCord.push([row, col]);
-      playerBoard.receiveAttack(row, col);
+      board.receiveAttack(row, col);
     }
   }
-  function turnDecide() {
-    randomAttack(playerBoard.gameB, 0, 9, 0, 9);
-    turnCount++;
-  }
 
-  return { attackCord, randomAttack, turnDecide };
+  return { attackCord, randomAttack };
 };
 
 export {
-  hPlayer, comPlayer, turnCount,
+  hPlayer, comPlayer,
 };
