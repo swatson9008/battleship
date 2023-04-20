@@ -145,8 +145,7 @@ const gameBoard = function (player) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "comPlayer": () => (/* binding */ comPlayer),
-/* harmony export */   "hPlayer": () => (/* binding */ hPlayer),
-/* harmony export */   "turnCount": () => (/* binding */ turnCount)
+/* harmony export */   "hPlayer": () => (/* binding */ hPlayer)
 /* harmony export */ });
 /* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameBoard */ "./src/gameBoard.js");
 /* eslint-disable no-else-return */
@@ -166,20 +165,18 @@ __webpack_require__.r(__webpack_exports__);
 
 const playerBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_0__["default"]('playerOne');
 const aiBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_0__["default"]('playerTwo');
-let turnCount = 0;
 const hPlayer = function (name) {
   let attackCord = [];
-  function chooseAttack(row, col) {
+  function chooseAttack(board, row, col) {
     if (attackCord.find(element => [row, col]) || col > 10 || row > 10) {
       return 'invalid coordinate';
     }
-    if (aiBoard.gameB[row][col] != null) {
+    if (board.gameB[row][col] != null) {
       attackCord.push([row, col]);
-      aiBoard.receiveAttack(row, col);
+      board.receiveAttack(row, col);
     } else {
       attackCord.push([row, col]);
-      aiBoard.receiveAttack(row, col);
-      turnCount++;
+      board.receiveAttack(row, col);
     }
   }
   return {
@@ -189,29 +186,24 @@ const hPlayer = function (name) {
 };
 const comPlayer = function (name) {
   let attackCord = [];
-  function randomAttack(arr, rowMin, rowMax, colMin, colMax) {
+  function randomAttack(board, rowMin, rowMax, colMin, colMax) {
     const row = Math.floor(Math.random() * (rowMax - rowMin + 1) + rowMin);
     const col = Math.floor(Math.random() * (colMax - colMin + 1) + colMin);
     if (attackCord.some(element => element[0] === col && element[1] === row)) {
-      randomAttack(playerBoard.gameB, 10, 10, 0, 9, 0, 9);
+      randomAttack(board.gameB, 0, 9, 0, 9);
     }
-    if (playerBoard.gameB[row][col] != null) {
+    if (board.gameB[row][col] != null) {
       attackCord.push([row, col]);
-      playerBoard.receiveAttack(row, col);
-      randomAttack(playerBoard.gameB, 0, 9, 0, 9);
+      board.receiveAttack(row, col);
+      randomAttack(board.gameB, 0, 9, 0, 9);
     } else {
       attackCord.push([row, col]);
-      playerBoard.receiveAttack(row, col);
+      board.receiveAttack(row, col);
     }
-  }
-  function turnDecide() {
-    randomAttack(playerBoard.gameB, 0, 9, 0, 9);
-    turnCount++;
   }
   return {
     attackCord,
-    randomAttack,
-    turnDecide
+    randomAttack
   };
 };
 
@@ -849,6 +841,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ "./src/style.css");
 /* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gameBoard */ "./src/gameBoard.js");
 /* harmony import */ var _players__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./players */ "./src/players.js");
+/* eslint-disable max-len */
 /* eslint-disable radix */
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
@@ -877,10 +870,10 @@ function createplayerBoard(boardField) {
 }
 createplayerBoard(aiBField);
 const boardCells = document.querySelectorAll('.boardSpace');
-const aiPlayer = (0,_players__WEBPACK_IMPORTED_MODULE_2__.comPlayer)();
-const humanPlayer = (0,_players__WEBPACK_IMPORTED_MODULE_2__.hPlayer)();
-const playerBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_1__["default"]('playerOne');
-const aiBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_1__["default"]('playerTwo');
+let playerBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_1__["default"]('playerOne');
+let aiBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_1__["default"]('playerTwo');
+let aiPlayer = (0,_players__WEBPACK_IMPORTED_MODULE_2__.comPlayer)(playerBoard);
+let humanPlayer = (0,_players__WEBPACK_IMPORTED_MODULE_2__.hPlayer)(aiBoard);
 let turnCount = 0;
 playerBoard.placeShipH(playerBoard.ships.carrier, 1, 1);
 playerBoard.placeShipV(playerBoard.ships.battleship, 2, 0);
@@ -894,8 +887,9 @@ aiBoard.placeShipV(aiBoard.ships.battleship, 2, 4);
 aiBoard.placeShipH(aiBoard.ships.carrier, 7, 2);
 boardCells.forEach(div => {
   div.addEventListener('click', () => {
-    humanPlayer.chooseAttack(parseInt(div.id.charAt(0), 10), parseInt(div.id.charAt(1), 10));
+    humanPlayer.chooseAttack(aiBoard, parseInt(div.id.charAt(0), 10), parseInt(div.id.charAt(1), 10));
     console.log(aiBoard.gameB);
+    turnCount++;
     console.log(turnCount);
     console.log(humanPlayer.attackCord);
     console.log(parseInt(div.id.charAt(0)));
