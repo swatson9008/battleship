@@ -6,11 +6,13 @@
 /*!**************************!*\
   !*** ./src/gameBoard.js ***!
   \**************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* harmony import */ var _ship__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ship */ "./src/ship.js");
-/* module decorator */ module = __webpack_require__.hmd(module);
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-cond-assign */
@@ -130,7 +132,7 @@ const gameBoard = function (player) {
     reportAllSunk
   };
 };
-module.exports = gameBoard;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (gameBoard);
 
 /***/ }),
 
@@ -220,17 +222,17 @@ const comPlayer = function (name) {
 /*!*********************!*\
   !*** ./src/ship.js ***!
   \*********************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "battleShip": () => (/* binding */ battleShip),
 /* harmony export */   "carrier": () => (/* binding */ carrier),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   "destroyer": () => (/* binding */ destroyer),
 /* harmony export */   "patrol": () => (/* binding */ patrol),
 /* harmony export */   "submarine": () => (/* binding */ submarine)
 /* harmony export */ });
-/* module decorator */ module = __webpack_require__.hmd(module);
 /* eslint-disable no-plusplus */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-vars */
@@ -255,7 +257,7 @@ const battleShip = shipFactory('battleship', 4, 0);
 const destroyer = shipFactory('destroyer', 3, 0);
 const submarine = shipFactory('submarine', 3, 0);
 const patrol = shipFactory('patrol', 2, 0);
-module.exports = shipFactory;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (shipFactory);
 
 /***/ }),
 
@@ -779,15 +781,12 @@ module.exports = styleTagTransform;
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			id: moduleId,
-/******/ 			loaded: false,
+/******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -815,21 +814,6 @@ module.exports = styleTagTransform;
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/harmony module decorator */
-/******/ 	(() => {
-/******/ 		__webpack_require__.hmd = (module) => {
-/******/ 			module = Object.create(module);
-/******/ 			if (!module.children) module.children = [];
-/******/ 			Object.defineProperty(module, 'exports', {
-/******/ 				enumerable: true,
-/******/ 				set: () => {
-/******/ 					throw new Error('ES Modules may not assign module.exports or exports.*, Use ESM export syntax, instead: ' + module.id);
-/******/ 				}
-/******/ 			});
-/******/ 			return module;
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -865,6 +849,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ "./src/style.css");
 /* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gameBoard */ "./src/gameBoard.js");
 /* harmony import */ var _players__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./players */ "./src/players.js");
+/* eslint-disable no-console */
 /* eslint-disable no-undef */
 /* eslint-disable no-alert */
 /* eslint-disable new-cap */
@@ -891,9 +876,27 @@ function createplayerBoard(boardField) {
 }
 createplayerBoard(aiBField);
 const boardCells = document.querySelectorAll('.boardSpace');
+const aiPlayer = (0,_players__WEBPACK_IMPORTED_MODULE_2__.comPlayer)();
+const humanPlayer = (0,_players__WEBPACK_IMPORTED_MODULE_2__.hPlayer)();
+const playerBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_1__["default"]('playerOne');
+const aiBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_1__["default"]('playerTwo');
+let turnCount = 0;
+playerBoard.placeShipH(playerBoard.ships.carrier, 1, 1);
+playerBoard.placeShipV(playerBoard.ships.battleship, 2, 0);
+playerBoard.placeShipH(playerBoard.ships.destroyer, 5, 5);
+playerBoard.placeShipV(playerBoard.ships.submarine, 7, 3);
+playerBoard.placeShipH(playerBoard.ships.patrol, 0, 6);
+aiBoard.placeShipH(aiBoard.ships.patrol, 9, 1);
+aiBoard.placeShipV(aiBoard.ships.submarine, 1, 9);
+aiBoard.placeShipH(aiBoard.ships.destroyer, 0, 0);
+aiBoard.placeShipV(aiBoard.ships.battleship, 2, 4);
+aiBoard.placeShipH(aiBoard.ships.carrier, 7, 2);
 boardCells.forEach(div => {
   div.addEventListener('click', () => {
-    alert(parseInt(div.id.charAt(0), 10));
+    humanPlayer.chooseAttack(parseInt(div.id.charAt(0), 10), parseInt(div.id.charAt(1), 10));
+    console.log(aiBoard.gameB);
+    console.log(turnCount);
+    console.log(humanPlayer.attackCord);
   });
 });
 createplayerBoard(playerBField);
