@@ -106,4 +106,4 @@ const gameBoard = function (player) {
   };
 };
 
-module.exports = gameBoard;
+export default gameBoard;

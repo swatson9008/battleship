@@ -25,4 +25,4 @@ export const destroyer = shipFactory('destroyer', 3, 0);
 export const submarine = shipFactory('submarine', 3, 0);
 export const patrol = shipFactory('patrol', 2, 0);
 
-module.exports = shipFactory;
+export default shipFactory;

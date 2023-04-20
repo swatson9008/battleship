@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-undef */
 /* eslint-disable no-alert */
 /* eslint-disable new-cap */
@@ -7,7 +8,7 @@
 import './style.css';
 import gameBoard from './gameBoard';
 import {
-  hPlayer, comPlayer, turnCount,
+  hPlayer, comPlayer,
 } from './players';
 
 const playerBField = document.getElementById('playerB');
@@ -30,9 +31,32 @@ createplayerBoard(aiBField);
 
 const boardCells = document.querySelectorAll('.boardSpace');
 
+const aiPlayer = comPlayer();
+const humanPlayer = hPlayer();
+
+const playerBoard = new gameBoard('playerOne');
+const aiBoard = new gameBoard('playerTwo');
+
+let turnCount = 0;
+
+playerBoard.placeShipH(playerBoard.ships.carrier, 1, 1);
+playerBoard.placeShipV(playerBoard.ships.battleship, 2, 0);
+playerBoard.placeShipH(playerBoard.ships.destroyer, 5, 5);
+playerBoard.placeShipV(playerBoard.ships.submarine, 7, 3);
+playerBoard.placeShipH(playerBoard.ships.patrol, 0, 6);
+
+aiBoard.placeShipH(aiBoard.ships.patrol, 9, 1);
+aiBoard.placeShipV(aiBoard.ships.submarine, 1, 9);
+aiBoard.placeShipH(aiBoard.ships.destroyer, 0, 0);
+aiBoard.placeShipV(aiBoard.ships.battleship, 2, 4);
+aiBoard.placeShipH(aiBoard.ships.carrier, 7, 2);
+
 boardCells.forEach((div) => {
   div.addEventListener('click', () => {
-    alert(parseInt(div.id.charAt(0), 10));
+    humanPlayer.chooseAttack(parseInt(div.id.charAt(0), 10), parseInt(div.id.charAt(1), 10));
+    console.log(aiBoard.gameB);
+    console.log(turnCount);
+    console.log(humanPlayer.attackCord);
   });
 });
 
