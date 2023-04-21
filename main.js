@@ -168,9 +168,6 @@ const aiBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_0__["default"]('playerTw
 const hPlayer = function (name) {
   let attackCord = [];
   function chooseAttack(board, row, col) {
-    if (attackCord.find(element => [row, col]) || col > 10 || row > 10) {
-      return 'invalid coordinate';
-    }
     if (board.gameB[row][col] != null) {
       attackCord.push([row, col]);
       board.receiveAttack(row, col);
@@ -272,7 +269,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#playerB, #aiB {\n    display: grid;\n    align-items: center;\n    grid-template-columns: repeat(10, 1fr);\n    grid-template-rows: repeat(10, 1fr);\n    max-width: 600px;\n}\n\n.boardLayout > div {\n    border: 1px solid black;\n    padding: 5px;\n    background-color:rgb(68, 182, 216);\n    min-height: 50px;\n}", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":";AACA;IACI,aAAa;IACb,mBAAmB;IACnB,sCAAsC;IACtC,mCAAmC;IACnC,gBAAgB;AACpB;;AAEA;IACI,uBAAuB;IACvB,YAAY;IACZ,kCAAkC;IAClC,gBAAgB;AACpB","sourcesContent":["\n#playerB, #aiB {\n    display: grid;\n    align-items: center;\n    grid-template-columns: repeat(10, 1fr);\n    grid-template-rows: repeat(10, 1fr);\n    max-width: 600px;\n}\n\n.boardLayout > div {\n    border: 1px solid black;\n    padding: 5px;\n    background-color:rgb(68, 182, 216);\n    min-height: 50px;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#playerB, #aiB {\n    display: grid;\n    align-items: center;\n    grid-template-columns: repeat(10, 1fr);\n    grid-template-rows: repeat(10, 1fr);\n    max-width: 600px;\n}\n\n.boardLayout > div {\n    border: 1px solid black;\n    padding: 5px;\n    background-color:rgb(68, 182, 216);\n    min-height: 50px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":";AACA;IACI,aAAa;IACb,mBAAmB;IACnB,sCAAsC;IACtC,mCAAmC;IACnC,gBAAgB;AACpB;;AAEA;IACI,uBAAuB;IACvB,YAAY;IACZ,kCAAkC;IAClC,gBAAgB;IAChB,aAAa;IACb,mBAAmB;IACnB,uBAAuB;AAC3B","sourcesContent":["\n#playerB, #aiB {\n    display: grid;\n    align-items: center;\n    grid-template-columns: repeat(10, 1fr);\n    grid-template-rows: repeat(10, 1fr);\n    max-width: 600px;\n}\n\n.boardLayout > div {\n    border: 1px solid black;\n    padding: 5px;\n    background-color:rgb(68, 182, 216);\n    min-height: 50px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -841,6 +838,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ "./src/style.css");
 /* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gameBoard */ "./src/gameBoard.js");
 /* harmony import */ var _players__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./players */ "./src/players.js");
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-param-reassign */
+/* eslint-disable consistent-return */
+/* eslint-disable no-constant-condition */
+/* eslint-disable no-cond-assign */
 /* eslint-disable max-len */
 /* eslint-disable radix */
 /* eslint-disable no-console */
@@ -885,15 +887,27 @@ aiBoard.placeShipV(aiBoard.ships.submarine, 1, 9);
 aiBoard.placeShipH(aiBoard.ships.destroyer, 0, 0);
 aiBoard.placeShipV(aiBoard.ships.battleship, 2, 4);
 aiBoard.placeShipH(aiBoard.ships.carrier, 7, 2);
+function playersTurn(element, board) {
+  if (element.textContent === 'X') {
+    alert('cannot be selected');
+  } else if (board.gameB[parseInt(element.id.charAt(0))][parseInt(element.id.charAt(1))] === null) {
+    element.textContent = 'X';
+    turnCount++;
+    humanPlayer.chooseAttack(board, parseInt(element.id.charAt(0)), parseInt(element.id.charAt(1)));
+  } else {
+    humanPlayer.chooseAttack(board, parseInt(element.id.charAt(0)), parseInt(element.id.charAt(1)));
+    element.style.backgroundColor = '#F07B7B';
+    element.textContent = 'X';
+    alert('one more');
+  }
+  console.log(aiBoard.gameB);
+  console.log(turnCount);
+  console.log(humanPlayer.attackCord);
+  console.log(aiBoard.sunkShips);
+}
 boardCells.forEach(div => {
   div.addEventListener('click', () => {
-    humanPlayer.chooseAttack(aiBoard, parseInt(div.id.charAt(0)), parseInt(div.id.charAt(1)));
-    console.log(aiBoard.gameB);
-    turnCount++;
-    console.log(turnCount);
-    console.log(humanPlayer.attackCord);
-    console.log(parseInt(div.id.charAt(0)));
-    console.log(parseInt(div.id.charAt(1)));
+    playersTurn(div, aiBoard);
   });
 });
 createplayerBoard(playerBField);
