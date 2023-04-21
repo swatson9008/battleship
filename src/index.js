@@ -37,8 +37,6 @@ function createplayerBoard(boardField) {
 createplayerBoard(aiBField);
 
 const boardCells = document.querySelectorAll('.boardSpace');
-const playerGroup = document.querySelector('#playerB');
-const playerCells = playerGroup.querySelectorAll('div');
 
 let playerBoard = new gameBoard('playerOne');
 let aiBoard = new gameBoard('playerTwo');
@@ -84,6 +82,9 @@ boardCells.forEach((div) => {
 });
 
 createplayerBoard(playerBField);
+
+const playerGroup = document.querySelector('#playerB');
+const playerCells = playerGroup.querySelectorAll('div');
 
 console.log(aiBoard.gameB);
 
