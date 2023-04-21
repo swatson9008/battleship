@@ -148,6 +148,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "hPlayer": () => (/* binding */ hPlayer)
 /* harmony export */ });
 /* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameBoard */ "./src/gameBoard.js");
+/* eslint-disable no-console */
 /* eslint-disable no-else-return */
 /* eslint-disable consistent-return */
 /* eslint-disable import/no-mutable-exports */
@@ -192,7 +193,7 @@ const comPlayer = function (name) {
     if (board.gameB[row][col] != null) {
       attackCord.push([row, col]);
       board.receiveAttack(row, col);
-      randomAttack(board.gameB, 0, 9, 0, 9);
+      return console.log('hit');
     } else {
       attackCord.push([row, col]);
       board.receiveAttack(row, col);
@@ -912,6 +913,10 @@ boardCells.forEach(div => {
 });
 createplayerBoard(playerBField);
 console.log(aiBoard.gameB);
+function computerTurn(board) {
+  aiPlayer.randomAttack(board.gameB, 0, 9, 0, 9);
+}
+computerTurn(playerBoard);
 })();
 
 /******/ })()
