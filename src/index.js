@@ -1,3 +1,8 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-param-reassign */
+/* eslint-disable consistent-return */
+/* eslint-disable no-constant-condition */
+/* eslint-disable no-cond-assign */
 /* eslint-disable max-len */
 /* eslint-disable radix */
 /* eslint-disable no-console */
@@ -52,15 +57,26 @@ aiBoard.placeShipH(aiBoard.ships.destroyer, 0, 0);
 aiBoard.placeShipV(aiBoard.ships.battleship, 2, 4);
 aiBoard.placeShipH(aiBoard.ships.carrier, 7, 2);
 
+function playersTurn(element, board) {
+  if (element.textContent === 'X') { alert('cannot be selected'); } else if (board.gameB[parseInt(element.id.charAt(0))][parseInt(element.id.charAt(1))] === null) {
+    element.textContent = 'X';
+    turnCount++;
+    humanPlayer.chooseAttack(board, parseInt(element.id.charAt(0)), parseInt(element.id.charAt(1)));
+  } else {
+    humanPlayer.chooseAttack(board, parseInt(element.id.charAt(0)), parseInt(element.id.charAt(1)));
+    element.style.backgroundColor = '#F07B7B';
+    element.textContent = 'X';
+    alert('one more');
+  }
+  console.log(aiBoard.gameB);
+  console.log(turnCount);
+  console.log(humanPlayer.attackCord);
+  console.log(aiBoard.sunkShips);
+}
+
 boardCells.forEach((div) => {
   div.addEventListener('click', () => {
-    humanPlayer.chooseAttack(aiBoard, parseInt(div.id.charAt(0)), parseInt(div.id.charAt(1)));
-    console.log(aiBoard.gameB);
-    turnCount++;
-    console.log(turnCount);
-    console.log(humanPlayer.attackCord);
-    console.log(parseInt(div.id.charAt(0)));
-    console.log(parseInt(div.id.charAt(1)));
+    playersTurn(div, aiBoard);
   });
 });
 

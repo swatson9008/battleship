@@ -36,8 +36,3 @@ test('if hits is calculated correctly', () => {
   humanPlayer.chooseAttack(aiBoard, 0, 0);
   expect(aiBoard.ships.carrier.hits).toEqual(1);
 });
-
-test('if error shows up if the same coord is selected twice for the human player', () => {
-  humanPlayer.chooseAttack(aiBoard, 1, 1);
-  expect(humanPlayer.chooseAttack(aiBoard, 1, 1)).toBe('invalid coordinate');
-});

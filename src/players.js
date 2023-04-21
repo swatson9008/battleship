@@ -21,7 +21,6 @@ const hPlayer = function (name) {
   let attackCord = [];
 
   function chooseAttack(board, row, col) {
-    if (attackCord.find((element) => [row, col]) || col > 10 || row > 10) { return 'invalid coordinate'; }
     if (board.gameB[row][col] != null) {
       attackCord.push([row, col]);
       board.receiveAttack(row, col);
