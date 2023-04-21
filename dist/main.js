@@ -875,8 +875,6 @@ function createplayerBoard(boardField) {
 }
 createplayerBoard(aiBField);
 const boardCells = document.querySelectorAll('.boardSpace');
-const playerGroup = document.querySelector('#playerB');
-const playerCells = playerGroup.querySelectorAll('div');
 let playerBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_1__["default"]('playerOne');
 let aiBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_1__["default"]('playerTwo');
 let aiPlayer = (0,_players__WEBPACK_IMPORTED_MODULE_2__.comPlayer)(playerBoard);
@@ -917,6 +915,8 @@ boardCells.forEach(div => {
   });
 });
 createplayerBoard(playerBField);
+const playerGroup = document.querySelector('#playerB');
+const playerCells = playerGroup.querySelectorAll('div');
 console.log(aiBoard.gameB);
 function computerTurn(board) {
   if (aiPlayer.randomAttack(board, 0, 9, 0, 9) === 'hit') {
