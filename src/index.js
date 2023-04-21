@@ -37,6 +37,8 @@ function createplayerBoard(boardField) {
 createplayerBoard(aiBField);
 
 const boardCells = document.querySelectorAll('.boardSpace');
+const playerGroup = document.querySelector('#playerB');
+const playerCells = playerGroup.querySelectorAll('div');
 
 let playerBoard = new gameBoard('playerOne');
 let aiBoard = new gameBoard('playerTwo');
@@ -44,6 +46,7 @@ let aiPlayer = comPlayer(playerBoard);
 let humanPlayer = hPlayer(aiBoard);
 
 let turnCount = 0;
+let computerAttempts = 0;
 
 playerBoard.placeShipH(playerBoard.ships.carrier, 1, 1);
 playerBoard.placeShipV(playerBoard.ships.battleship, 2, 0);
@@ -85,7 +88,27 @@ createplayerBoard(playerBField);
 console.log(aiBoard.gameB);
 
 function computerTurn(board) {
-  aiPlayer.randomAttack(board.gameB, 0, 9, 0, 9);
+  if (aiPlayer.randomAttack(board, 0, 9, 0, 9) === 'hit') {
+    playerCells.forEach((div) => {
+      if (div.id === parseInt(aiPlayer.attackCord[computerAttempts])) {
+        div.style.backgroundColor = '#F07B7B';
+        div.textContent = 'X';
+      }
+    });
+    computerAttempts++;
+    computerTurn(board);
+  } else {
+    playerCells.forEach(() => {
+      if (div.id === parseInt(aiPlayer.attackCord[computerAttempts])) {
+        div.textContent = 'X';
+      }
+    });
+    computerAttempts++;
+  }
 }
 
 computerTurn(playerBoard);
+computerTurn(playerBoard);
+
+console.log(aiPlayer.attackCord);
+console.log(playerBoard.gameB);

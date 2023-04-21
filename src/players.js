@@ -40,13 +40,15 @@ const comPlayer = function (name) {
   function randomAttack(board, rowMin, rowMax, colMin, colMax) {
     const row = Math.floor(Math.random() * (rowMax - rowMin + 1) + rowMin);
     const col = Math.floor(Math.random() * (colMax - colMin + 1) + colMin);
-    if (attackCord.some((element) => element[0] === col && element[1] === row)) { randomAttack(board.gameB, 0, 9, 0, 9); }
+    console.log(row);
+    console.log(col);
+    if (attackCord.some((element) => element[0] === col && element[1] === row)) { randomAttack(board, 0, 9, 0, 9); }
     if (board.gameB[row][col] != null) {
-      attackCord.push([row, col]);
+      attackCord.push([`${row}${col}`]);
       board.receiveAttack(row, col);
-      return console.log('hit');
+      return 'hit';
     } else {
-      attackCord.push([row, col]);
+      attackCord.push([`${row}${col}`]);
       board.receiveAttack(row, col);
     }
   }

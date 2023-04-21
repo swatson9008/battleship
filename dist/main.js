@@ -187,15 +187,17 @@ const comPlayer = function (name) {
   function randomAttack(board, rowMin, rowMax, colMin, colMax) {
     const row = Math.floor(Math.random() * (rowMax - rowMin + 1) + rowMin);
     const col = Math.floor(Math.random() * (colMax - colMin + 1) + colMin);
+    console.log(row);
+    console.log(col);
     if (attackCord.some(element => element[0] === col && element[1] === row)) {
-      randomAttack(board.gameB, 0, 9, 0, 9);
+      randomAttack(board, 0, 9, 0, 9);
     }
     if (board.gameB[row][col] != null) {
-      attackCord.push([row, col]);
+      attackCord.push([`${row}${col}`]);
       board.receiveAttack(row, col);
-      return console.log('hit');
+      return 'hit';
     } else {
-      attackCord.push([row, col]);
+      attackCord.push([`${row}${col}`]);
       board.receiveAttack(row, col);
     }
   }
@@ -873,11 +875,14 @@ function createplayerBoard(boardField) {
 }
 createplayerBoard(aiBField);
 const boardCells = document.querySelectorAll('.boardSpace');
+const playerGroup = document.querySelector('#playerB');
+const playerCells = playerGroup.querySelectorAll('div');
 let playerBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_1__["default"]('playerOne');
 let aiBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_1__["default"]('playerTwo');
 let aiPlayer = (0,_players__WEBPACK_IMPORTED_MODULE_2__.comPlayer)(playerBoard);
 let humanPlayer = (0,_players__WEBPACK_IMPORTED_MODULE_2__.hPlayer)(aiBoard);
 let turnCount = 0;
+let computerAttempts = 0;
 playerBoard.placeShipH(playerBoard.ships.carrier, 1, 1);
 playerBoard.placeShipV(playerBoard.ships.battleship, 2, 0);
 playerBoard.placeShipH(playerBoard.ships.destroyer, 5, 5);
@@ -914,9 +919,28 @@ boardCells.forEach(div => {
 createplayerBoard(playerBField);
 console.log(aiBoard.gameB);
 function computerTurn(board) {
-  aiPlayer.randomAttack(board.gameB, 0, 9, 0, 9);
+  if (aiPlayer.randomAttack(board, 0, 9, 0, 9) === 'hit') {
+    playerCells.forEach(div => {
+      if (div.id === parseInt(aiPlayer.attackCord[computerAttempts])) {
+        div.style.backgroundColor = '#F07B7B';
+        div.textContent = 'X';
+      }
+    });
+    computerAttempts++;
+    computerTurn(board);
+  } else {
+    playerCells.forEach(() => {
+      if (div.id === parseInt(aiPlayer.attackCord[computerAttempts])) {
+        div.textContent = 'X';
+      }
+    });
+    computerAttempts++;
+  }
 }
 computerTurn(playerBoard);
+computerTurn(playerBoard);
+console.log(aiPlayer.attackCord);
+console.log(playerBoard.gameB);
 })();
 
 /******/ })()
