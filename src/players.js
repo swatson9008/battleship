@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-else-return */
 /* eslint-disable consistent-return */
 /* eslint-disable import/no-mutable-exports */
@@ -43,14 +44,16 @@ const comPlayer = function (name) {
     if (board.gameB[row][col] != null) {
       attackCord.push([row, col]);
       board.receiveAttack(row, col);
-      randomAttack(board.gameB, 0, 9, 0, 9);
+      return console.log('hit');
     } else {
       attackCord.push([row, col]);
       board.receiveAttack(row, col);
     }
   }
 
-  return { attackCord, randomAttack };
+  return {
+    attackCord, randomAttack,
+  };
 };
 
 export {

@@ -21,15 +21,15 @@ let turnCount = 0;
 const comPlayer = function (name) {
   const attackCord = [];
 
-  function randomAttack(row, col) {
+  function randomAttack(board, row, col) {
     if (attackCord.some((element) => element[0] === col && element[1] === row)) { return 'try again'; }
-    if (playerBoard.gameB[row][col] != null) {
+    if (board.gameB[row][col] != null) {
       attackCord.push([row, col]);
-      playerBoard.receiveAttack(row, col);
+      board.receiveAttack(row, col);
       return 'good job';
     } else {
       attackCord.push([row, col]);
-      playerBoard.receiveAttack(row, col);
+      board.receiveAttack(row, col);
       return 'you missed';
     }
   }
@@ -41,15 +41,15 @@ const aiPlayer = comPlayer();
 
 test('tries to hit again if successful', () => {
   playerBoard.placeShipH(playerBoard.ships.submarine, 3, 3);
-  expect(aiPlayer.randomAttack(3, 3)).toBe('good job');
+  expect(aiPlayer.randomAttack(playerBoard, 3, 3)).toBe('good job');
 });
 
 test('displays the correct message', () => {
-  aiPlayer.randomAttack(1, 1);
-  aiPlayer.randomAttack(2, 2);
-  expect(aiPlayer.randomAttack(2, 2)).toBe('try again');
+  aiPlayer.randomAttack(playerBoard, 1, 1);
+  aiPlayer.randomAttack(playerBoard, 2, 2);
+  expect(aiPlayer.randomAttack(playerBoard, 2, 2)).toBe('try again');
 });
 
 test('displays the correct message for a miss', () => {
-  expect(aiPlayer.randomAttack(0, 0)).toBe('you missed');
+  expect(aiPlayer.randomAttack(playerBoard, 0, 0)).toBe('you missed');
 });

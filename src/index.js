@@ -83,3 +83,9 @@ boardCells.forEach((div) => {
 createplayerBoard(playerBField);
 
 console.log(aiBoard.gameB);
+
+function computerTurn(board) {
+  aiPlayer.randomAttack(board.gameB, 0, 9, 0, 9);
+}
+
+computerTurn(playerBoard);
