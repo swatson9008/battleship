@@ -929,7 +929,7 @@ function computerTurn(board) {
     computerAttempts++;
     computerTurn(board);
   } else {
-    playerCells.forEach(() => {
+    playerCells.forEach(div => {
       if (div.id === parseInt(aiPlayer.attackCord[computerAttempts])) {
         div.textContent = 'X';
       }
