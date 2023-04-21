@@ -54,7 +54,7 @@ aiBoard.placeShipH(aiBoard.ships.carrier, 7, 2);
 
 boardCells.forEach((div) => {
   div.addEventListener('click', () => {
-    humanPlayer.chooseAttack(aiBoard, parseInt(div.id.charAt(0), 10), parseInt(div.id.charAt(1), 10));
+    humanPlayer.chooseAttack(aiBoard, parseInt(div.id.charAt(0)), parseInt(div.id.charAt(1)));
     console.log(aiBoard.gameB);
     turnCount++;
     console.log(turnCount);
