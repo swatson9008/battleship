@@ -891,29 +891,6 @@ aiBoard.placeShipV(aiBoard.ships.submarine, 1, 9);
 aiBoard.placeShipH(aiBoard.ships.destroyer, 0, 0);
 aiBoard.placeShipV(aiBoard.ships.battleship, 2, 4);
 aiBoard.placeShipH(aiBoard.ships.carrier, 7, 2);
-function playersTurn(element, board) {
-  if (element.textContent === 'X') {
-    alert('cannot be selected');
-  } else if (board.gameB[parseInt(element.id.charAt(0))][parseInt(element.id.charAt(1))] === null) {
-    element.textContent = 'X';
-    turnCount++;
-    humanPlayer.chooseAttack(board, parseInt(element.id.charAt(0)), parseInt(element.id.charAt(1)));
-  } else {
-    humanPlayer.chooseAttack(board, parseInt(element.id.charAt(0)), parseInt(element.id.charAt(1)));
-    element.style.backgroundColor = '#F07B7B';
-    element.textContent = 'X';
-    alert('one more');
-  }
-  console.log(aiBoard.gameB);
-  console.log(turnCount);
-  console.log(humanPlayer.attackCord);
-  console.log(aiBoard.sunkShips);
-}
-boardCells.forEach(div => {
-  div.addEventListener('click', () => {
-    playersTurn(div, aiBoard);
-  });
-});
 createplayerBoard(playerBField);
 const playerGroup = document.querySelector('#playerB');
 const playerCells = playerGroup.querySelectorAll('div');
@@ -921,26 +898,49 @@ console.log(aiBoard.gameB);
 function computerTurn(board) {
   if (aiPlayer.randomAttack(board, 0, 9, 0, 9) === 'hit') {
     playerCells.forEach(div => {
-      if (div.id === parseInt(aiPlayer.attackCord[computerAttempts])) {
+      if (div.id === String(aiPlayer.attackCord[computerAttempts])) {
         div.style.backgroundColor = '#F07B7B';
         div.textContent = 'X';
       }
     });
-    computerAttempts++;
-    computerTurn(board);
+    if (playerBoard.reportAllSunk() === true) {
+      alert('Computer Wins');
+    } else {
+      computerAttempts++;
+      computerTurn(board);
+    }
   } else {
     playerCells.forEach(div => {
-      if (div.id === parseInt(aiPlayer.attackCord[computerAttempts])) {
+      if (div.id === String(aiPlayer.attackCord[computerAttempts])) {
         div.textContent = 'X';
       }
     });
     computerAttempts++;
   }
 }
-computerTurn(playerBoard);
-computerTurn(playerBoard);
-console.log(aiPlayer.attackCord);
-console.log(playerBoard.gameB);
+function playersTurn(element, board) {
+  if (element.textContent === 'X') {
+    alert('cannot be selected');
+  } else if (board.gameB[parseInt(element.id.charAt(0))][parseInt(element.id.charAt(1))] === null) {
+    element.textContent = 'X';
+    turnCount++;
+    humanPlayer.chooseAttack(board, parseInt(element.id.charAt(0)), parseInt(element.id.charAt(1)));
+    computerTurn(playerBoard);
+  } else {
+    humanPlayer.chooseAttack(board, parseInt(element.id.charAt(0)), parseInt(element.id.charAt(1)));
+    element.style.backgroundColor = '#F07B7B';
+    element.textContent = 'X';
+    if (aiBoard.reportAllSunk() === true) {
+      return alert('You win');
+    }
+    alert('one more');
+  }
+}
+boardCells.forEach(div => {
+  div.addEventListener('click', () => {
+    playersTurn(div, aiBoard);
+  });
+});
 })();
 
 /******/ })()
