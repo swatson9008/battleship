@@ -52,11 +52,23 @@ playerBoard.placeShipH(playerBoard.ships.destroyer, 5, 5);
 playerBoard.placeShipV(playerBoard.ships.submarine, 7, 3);
 playerBoard.placeShipH(playerBoard.ships.patrol, 0, 6);
 
-aiBoard.placeShipH(aiBoard.ships.patrol, 9, 1);
-aiBoard.placeShipV(aiBoard.ships.submarine, 1, 9);
-aiBoard.placeShipH(aiBoard.ships.destroyer, 0, 0);
-aiBoard.placeShipV(aiBoard.ships.battleship, 2, 4);
-aiBoard.placeShipH(aiBoard.ships.carrier, 7, 2);
+// aiBoard.placeShipH(aiBoard.ships.patrol, 9, 1);
+// aiBoard.placeShipV(aiBoard.ships.submarine, 1, 9);
+// aiBoard.placeShipH(aiBoard.ships.destroyer, 0, 0);
+// aiBoard.placeShipV(aiBoard.ships.battleship, 2, 4);
+// aiBoard.placeShipH(aiBoard.ships.carrier, 7, 2);
+
+function randomChoice(player, board, ship, rowMin, rowMax, colMin, colMax) {
+  if (player.randomSelection(board, ship, rowMin, rowMax, colMin, colMax) === false) {
+    randomChoice(player, board, ship, rowMin, rowMax, colMin, colMax);
+  } else { return 'success'; }
+}
+
+randomChoice(aiPlayer, aiBoard, aiBoard.ships.carrier, 0, 9, 0, 9);
+randomChoice(aiPlayer, aiBoard, aiBoard.ships.battleship, 0, 9, 0, 9);
+randomChoice(aiPlayer, aiBoard, aiBoard.ships.destroyer, 0, 9, 0, 9);
+randomChoice(aiPlayer, aiBoard, aiBoard.ships.submarine, 0, 9, 0, 9);
+randomChoice(aiPlayer, aiBoard, aiBoard.ships.patrol, 0, 9, 0, 9);
 
 createplayerBoard(playerBField);
 
@@ -97,7 +109,7 @@ function playersTurn(element, board) {
     humanPlayer.chooseAttack(board, parseInt(element.id.charAt(0)), parseInt(element.id.charAt(1)));
     element.style.backgroundColor = '#F07B7B';
     element.textContent = 'X';
-    if (aiBoard.reportAllSunk() === true) { return alert('You win'); } alert('one more');
+    if (aiBoard.reportAllSunk() === true) { return alert('You win'); } alert('hit');
   }
 }
 
