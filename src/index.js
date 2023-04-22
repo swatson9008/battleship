@@ -53,24 +53,18 @@ playerBoard.placeShipV(playerBoard.ships.submarine, 7, 3);
 playerBoard.placeShipH(playerBoard.ships.patrol, 0, 6);
 
 // aiBoard.placeShipH(aiBoard.ships.patrol, 9, 1);
-// aiBoard.placeShipV(aiBoard.ships.submarine, 1, 9);
+// aiBoard.placeShipV(aiBoard.ships.submarine, 9, 9);
 // aiBoard.placeShipH(aiBoard.ships.destroyer, 0, 0);
 // aiBoard.placeShipV(aiBoard.ships.battleship, 2, 4);
 // aiBoard.placeShipH(aiBoard.ships.carrier, 7, 2);
 
-function randomChoice(player, board, ship) {
-  if (player.randomSelection(board, ship) === false) {
-    randomChoice(player, board, ship);
-  } else { return 'success'; }
-}
+aiPlayer.randomSelection(aiBoard, aiBoard.ships.carrier);
+aiPlayer.randomSelection(aiBoard, aiBoard.ships.battleship);
+aiPlayer.randomSelection(aiBoard, aiBoard.ships.destroyer);
+aiPlayer.randomSelection(aiBoard, aiBoard.ships.submarine);
+aiPlayer.randomSelection(aiBoard, aiBoard.ships.patrol);
 
 createplayerBoard(playerBField);
-
-randomChoice(aiPlayer, aiBoard, aiBoard.ships.carrier);
-randomChoice(aiPlayer, aiBoard, aiBoard.ships.battleship);
-randomChoice(aiPlayer, aiBoard, aiBoard.ships.destroyer);
-randomChoice(aiPlayer, aiBoard, aiBoard.ships.submarine);
-randomChoice(aiPlayer, aiBoard, aiBoard.ships.patrol);
 
 const playerGroup = document.querySelector('#playerB');
 const playerCells = playerGroup.querySelectorAll('div');

@@ -56,8 +56,12 @@ const comPlayer = function (name) {
     const row = Math.floor(Math.random() * 10);
     const col = Math.floor(Math.random() * 10);
     if (randomPick === 0) {
-      board.placeShipH(ship, row, col);
-    } else { board.placeShipV(ship, row, col); }
+      if (board.placeShipH(ship, row, col) === false) {
+        randomSelection(board, ship);
+      }
+    } else if (board.placeShipV(ship, row, col) === false) {
+      randomSelection(board, ship);
+    }
   }
 
   return {
