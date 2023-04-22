@@ -201,9 +201,20 @@ const comPlayer = function (name) {
       board.receiveAttack(row, col);
     }
   }
+  function randomSelection(board, ship, rowMin, rowMax, colMin, colMax) {
+    let randomPick = Math.floor(Math.random() * 2);
+    const row = Math.floor(Math.random() * (rowMax - rowMin + 1) + rowMin);
+    const col = Math.floor(Math.random() * (colMax - colMin + 1) + colMin);
+    if (randomPick === 0) {
+      board.placeShipH(ship, row, col);
+    } else {
+      board.placeShipV(ship, row, col);
+    }
+  }
   return {
     attackCord,
-    randomAttack
+    randomAttack,
+    randomSelection
   };
 };
 
@@ -886,11 +897,25 @@ playerBoard.placeShipV(playerBoard.ships.battleship, 2, 0);
 playerBoard.placeShipH(playerBoard.ships.destroyer, 5, 5);
 playerBoard.placeShipV(playerBoard.ships.submarine, 7, 3);
 playerBoard.placeShipH(playerBoard.ships.patrol, 0, 6);
-aiBoard.placeShipH(aiBoard.ships.patrol, 9, 1);
-aiBoard.placeShipV(aiBoard.ships.submarine, 1, 9);
-aiBoard.placeShipH(aiBoard.ships.destroyer, 0, 0);
-aiBoard.placeShipV(aiBoard.ships.battleship, 2, 4);
-aiBoard.placeShipH(aiBoard.ships.carrier, 7, 2);
+
+// aiBoard.placeShipH(aiBoard.ships.patrol, 9, 1);
+// aiBoard.placeShipV(aiBoard.ships.submarine, 1, 9);
+// aiBoard.placeShipH(aiBoard.ships.destroyer, 0, 0);
+// aiBoard.placeShipV(aiBoard.ships.battleship, 2, 4);
+// aiBoard.placeShipH(aiBoard.ships.carrier, 7, 2);
+
+function randomChoice(player, board, ship, rowMin, rowMax, colMin, colMax) {
+  if (player.randomSelection(board, ship, rowMin, rowMax, colMin, colMax) === false) {
+    randomChoice(player, board, ship, rowMin, rowMax, colMin, colMax);
+  } else {
+    return 'success';
+  }
+}
+randomChoice(aiPlayer, aiBoard, aiBoard.ships.carrier, 0, 9, 0, 9);
+randomChoice(aiPlayer, aiBoard, aiBoard.ships.battleship, 0, 9, 0, 9);
+randomChoice(aiPlayer, aiBoard, aiBoard.ships.destroyer, 0, 9, 0, 9);
+randomChoice(aiPlayer, aiBoard, aiBoard.ships.submarine, 0, 9, 0, 9);
+randomChoice(aiPlayer, aiBoard, aiBoard.ships.patrol, 0, 9, 0, 9);
 createplayerBoard(playerBField);
 const playerGroup = document.querySelector('#playerB');
 const playerCells = playerGroup.querySelectorAll('div');
@@ -933,7 +958,7 @@ function playersTurn(element, board) {
     if (aiBoard.reportAllSunk() === true) {
       return alert('You win');
     }
-    alert('one more');
+    alert('hit');
   }
 }
 boardCells.forEach(div => {
