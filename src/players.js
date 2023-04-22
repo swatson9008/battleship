@@ -53,8 +53,17 @@ const comPlayer = function (name) {
     }
   }
 
+  function randomSelection(board, ship, rowMin, rowMax, colMin, colMax) {
+    let randomPick = Math.floor(Math.random() * 2);
+    const row = Math.floor(Math.random() * (rowMax - rowMin + 1) + rowMin);
+    const col = Math.floor(Math.random() * (colMax - colMin + 1) + colMin);
+    if (randomPick === 0) {
+      board.placeShipH(ship, row, col);
+    } else { board.placeShipV(ship, row, col); }
+  }
+
   return {
-    attackCord, randomAttack,
+    attackCord, randomAttack, randomSelection,
   };
 };
 
