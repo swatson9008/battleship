@@ -62,7 +62,7 @@ const gameBoard = function (player) {
   }
 
   function placeShipV(ships, currCordX, currCordY) {
-    if ((ships.size + currCordX) - 2 < 10 && gameB[currCordX][currCordY] === null) {
+    if ((ships.size + currCordX) - 1 < 10 && gameB[currCordX][currCordY] === null) {
       for (let i = 0; i < ships.size; i++) {
         if (gameB[currCordX + i][currCordY] !== null) {
           return false;
