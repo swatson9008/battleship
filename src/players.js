@@ -40,8 +40,6 @@ const comPlayer = function (name) {
   function randomAttack(board, rowMin, rowMax, colMin, colMax) {
     const row = Math.floor(Math.random() * (rowMax - rowMin + 1) + rowMin);
     const col = Math.floor(Math.random() * (colMax - colMin + 1) + colMin);
-    console.log(row);
-    console.log(col);
     if (attackCord.some((element) => element[0] === col && element[1] === row)) { randomAttack(board, 0, 9, 0, 9); }
     if (board.gameB[row][col] != null) {
       attackCord.push([`${row}${col}`]);
@@ -53,10 +51,10 @@ const comPlayer = function (name) {
     }
   }
 
-  function randomSelection(board, ship, rowMin, rowMax, colMin, colMax) {
+  function randomSelection(board, ship) {
     let randomPick = Math.floor(Math.random() * 2);
-    const row = Math.floor(Math.random() * (rowMax - rowMin + 1) + rowMin);
-    const col = Math.floor(Math.random() * (colMax - colMin + 1) + colMin);
+    const row = Math.floor(Math.random() * 10);
+    const col = Math.floor(Math.random() * 10);
     if (randomPick === 0) {
       board.placeShipH(ship, row, col);
     } else { board.placeShipV(ship, row, col); }

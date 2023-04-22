@@ -187,8 +187,6 @@ const comPlayer = function (name) {
   function randomAttack(board, rowMin, rowMax, colMin, colMax) {
     const row = Math.floor(Math.random() * (rowMax - rowMin + 1) + rowMin);
     const col = Math.floor(Math.random() * (colMax - colMin + 1) + colMin);
-    console.log(row);
-    console.log(col);
     if (attackCord.some(element => element[0] === col && element[1] === row)) {
       randomAttack(board, 0, 9, 0, 9);
     }
@@ -201,10 +199,10 @@ const comPlayer = function (name) {
       board.receiveAttack(row, col);
     }
   }
-  function randomSelection(board, ship, rowMin, rowMax, colMin, colMax) {
+  function randomSelection(board, ship) {
     let randomPick = Math.floor(Math.random() * 2);
-    const row = Math.floor(Math.random() * (rowMax - rowMin + 1) + rowMin);
-    const col = Math.floor(Math.random() * (colMax - colMin + 1) + colMin);
+    const row = Math.floor(Math.random() * 10);
+    const col = Math.floor(Math.random() * 10);
     if (randomPick === 0) {
       board.placeShipH(ship, row, col);
     } else {
@@ -904,19 +902,19 @@ playerBoard.placeShipH(playerBoard.ships.patrol, 0, 6);
 // aiBoard.placeShipV(aiBoard.ships.battleship, 2, 4);
 // aiBoard.placeShipH(aiBoard.ships.carrier, 7, 2);
 
-function randomChoice(player, board, ship, rowMin, rowMax, colMin, colMax) {
-  if (player.randomSelection(board, ship, rowMin, rowMax, colMin, colMax) === false) {
-    randomChoice(player, board, ship, rowMin, rowMax, colMin, colMax);
+function randomChoice(player, board, ship) {
+  if (player.randomSelection(board, ship) === false) {
+    randomChoice(player, board, ship);
   } else {
     return 'success';
   }
 }
-randomChoice(aiPlayer, aiBoard, aiBoard.ships.carrier, 0, 9, 0, 9);
-randomChoice(aiPlayer, aiBoard, aiBoard.ships.battleship, 0, 9, 0, 9);
-randomChoice(aiPlayer, aiBoard, aiBoard.ships.destroyer, 0, 9, 0, 9);
-randomChoice(aiPlayer, aiBoard, aiBoard.ships.submarine, 0, 9, 0, 9);
-randomChoice(aiPlayer, aiBoard, aiBoard.ships.patrol, 0, 9, 0, 9);
 createplayerBoard(playerBField);
+randomChoice(aiPlayer, aiBoard, aiBoard.ships.carrier);
+randomChoice(aiPlayer, aiBoard, aiBoard.ships.battleship);
+randomChoice(aiPlayer, aiBoard, aiBoard.ships.destroyer);
+randomChoice(aiPlayer, aiBoard, aiBoard.ships.submarine);
+randomChoice(aiPlayer, aiBoard, aiBoard.ships.patrol);
 const playerGroup = document.querySelector('#playerB');
 const playerCells = playerGroup.querySelectorAll('div');
 console.log(aiBoard.gameB);
