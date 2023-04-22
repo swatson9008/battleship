@@ -2,6 +2,88 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/game.js":
+/*!*********************!*\
+  !*** ./src/game.js ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "aiBoard": () => (/* binding */ aiBoard),
+/* harmony export */   "aiPlayer": () => (/* binding */ aiPlayer),
+/* harmony export */   "computerTurn": () => (/* binding */ computerTurn),
+/* harmony export */   "humanPlayer": () => (/* binding */ humanPlayer),
+/* harmony export */   "playerBoard": () => (/* binding */ playerBoard),
+/* harmony export */   "playersTurn": () => (/* binding */ playersTurn)
+/* harmony export */ });
+/* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameBoard */ "./src/gameBoard.js");
+/* harmony import */ var _players__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./players */ "./src/players.js");
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! . */ "./src/index.js");
+/* eslint-disable import/no-cycle */
+/* eslint-disable no-alert */
+/* eslint-disable no-const-assign */
+/* eslint-disable consistent-return */
+/* eslint-disable radix */
+/* eslint-disable no-plusplus */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-undef */
+/* eslint-disable new-cap */
+/* eslint-disable no-unused-vars */
+
+
+
+let turnCount = 0;
+const playerBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_0__["default"]('playerOne');
+const aiBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_0__["default"]('playerTwo');
+const aiPlayer = (0,_players__WEBPACK_IMPORTED_MODULE_1__.comPlayer)();
+const humanPlayer = (0,_players__WEBPACK_IMPORTED_MODULE_1__.hPlayer)();
+let computerAttempts = 0;
+function computerTurn(board) {
+  if (aiPlayer.randomAttack(board, 0, 9, 0, 9) === 'hit') {
+    ___WEBPACK_IMPORTED_MODULE_2__.playerCells.forEach(div => {
+      if (div.id === String(aiPlayer.attackCord[computerAttempts])) {
+        div.style.backgroundColor = '#F07B7B';
+        div.textContent = 'X';
+      }
+    });
+    if (playerBoard.reportAllSunk() === true) {
+      alert('Computer Wins');
+    } else {
+      computerAttempts++;
+      computerTurn(board);
+    }
+  } else {
+    ___WEBPACK_IMPORTED_MODULE_2__.playerCells.forEach(div => {
+      if (div.id === String(aiPlayer.attackCord[computerAttempts])) {
+        div.textContent = 'X';
+      }
+    });
+    computerAttempts++;
+  }
+}
+function playersTurn(element, board) {
+  if (element.textContent === 'X') {
+    alert('cannot be selected');
+  } else if (board.gameB[parseInt(element.id.charAt(0))][parseInt(element.id.charAt(1))] === null) {
+    element.textContent = 'X';
+    turnCount++;
+    humanPlayer.chooseAttack(board, parseInt(element.id.charAt(0)), parseInt(element.id.charAt(1)));
+    computerTurn(playerBoard);
+  } else {
+    humanPlayer.chooseAttack(board, parseInt(element.id.charAt(0)), parseInt(element.id.charAt(1)));
+    element.style.backgroundColor = '#F07B7B';
+    element.textContent = 'X';
+    if (aiBoard.reportAllSunk() === true) {
+      return alert('You win');
+    }
+    alert('hit');
+  }
+}
+
+
+/***/ }),
+
 /***/ "./src/gameBoard.js":
 /*!**************************!*\
   !*** ./src/gameBoard.js ***!
@@ -133,6 +215,81 @@ const gameBoard = function (player) {
   };
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (gameBoard);
+
+/***/ }),
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "boardCells": () => (/* binding */ boardCells),
+/* harmony export */   "playerCells": () => (/* binding */ playerCells),
+/* harmony export */   "playerGroup": () => (/* binding */ playerGroup)
+/* harmony export */ });
+/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ "./src/style.css");
+/* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gameBoard */ "./src/gameBoard.js");
+/* harmony import */ var _players__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./players */ "./src/players.js");
+/* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./game */ "./src/game.js");
+/* eslint-disable import/no-cycle */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-param-reassign */
+/* eslint-disable consistent-return */
+/* eslint-disable no-constant-condition */
+/* eslint-disable no-cond-assign */
+/* eslint-disable max-len */
+/* eslint-disable radix */
+/* eslint-disable no-console */
+/* eslint-disable no-undef */
+/* eslint-disable no-alert */
+/* eslint-disable new-cap */
+/* eslint-disable prefer-const */
+/* eslint-disable no-plusplus */
+/* eslint-disable no-unused-vars */
+
+
+
+
+const playerBField = document.getElementById('playerB');
+const aiBField = document.getElementById('aiB');
+function createplayerBoard(boardField) {
+  let rowId = 0;
+  for (let i = 0; i < 100; i++) {
+    let columnId = i % 10;
+    const newItem = document.createElement('div');
+    newItem.id = `${rowId}${columnId}`;
+    newItem.classList.add('boardSpace');
+    boardField.appendChild(newItem);
+    if (columnId === 9) {
+      rowId++;
+    }
+  }
+}
+createplayerBoard(aiBField);
+const boardCells = document.querySelectorAll('.boardSpace');
+_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.placeShipH(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.ships.carrier, 1, 1);
+_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.placeShipV(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.ships.battleship, 2, 0);
+_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.placeShipH(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.ships.destroyer, 5, 5);
+_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.placeShipV(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.ships.submarine, 7, 3);
+_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.placeShipH(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.ships.patrol, 0, 6);
+_game__WEBPACK_IMPORTED_MODULE_3__.aiPlayer.randomSelection(_game__WEBPACK_IMPORTED_MODULE_3__.aiBoard, _game__WEBPACK_IMPORTED_MODULE_3__.aiBoard.ships.carrier);
+_game__WEBPACK_IMPORTED_MODULE_3__.aiPlayer.randomSelection(_game__WEBPACK_IMPORTED_MODULE_3__.aiBoard, _game__WEBPACK_IMPORTED_MODULE_3__.aiBoard.ships.battleship);
+_game__WEBPACK_IMPORTED_MODULE_3__.aiPlayer.randomSelection(_game__WEBPACK_IMPORTED_MODULE_3__.aiBoard, _game__WEBPACK_IMPORTED_MODULE_3__.aiBoard.ships.destroyer);
+_game__WEBPACK_IMPORTED_MODULE_3__.aiPlayer.randomSelection(_game__WEBPACK_IMPORTED_MODULE_3__.aiBoard, _game__WEBPACK_IMPORTED_MODULE_3__.aiBoard.ships.submarine);
+_game__WEBPACK_IMPORTED_MODULE_3__.aiPlayer.randomSelection(_game__WEBPACK_IMPORTED_MODULE_3__.aiBoard, _game__WEBPACK_IMPORTED_MODULE_3__.aiBoard.ships.patrol);
+createplayerBoard(playerBField);
+const playerGroup = document.querySelector('#playerB');
+const playerCells = playerGroup.querySelectorAll('div');
+console.log(_game__WEBPACK_IMPORTED_MODULE_3__.aiBoard.gameB);
+boardCells.forEach(div => {
+  div.addEventListener('click', () => {
+    (0,_game__WEBPACK_IMPORTED_MODULE_3__.playersTurn)(div, _game__WEBPACK_IMPORTED_MODULE_3__.aiBoard);
+  });
+});
+
 
 /***/ }),
 
@@ -842,125 +999,12 @@ module.exports = styleTagTransform;
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ "./src/style.css");
-/* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gameBoard */ "./src/gameBoard.js");
-/* harmony import */ var _players__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./players */ "./src/players.js");
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-param-reassign */
-/* eslint-disable consistent-return */
-/* eslint-disable no-constant-condition */
-/* eslint-disable no-cond-assign */
-/* eslint-disable max-len */
-/* eslint-disable radix */
-/* eslint-disable no-console */
-/* eslint-disable no-undef */
-/* eslint-disable no-alert */
-/* eslint-disable new-cap */
-/* eslint-disable prefer-const */
-/* eslint-disable no-plusplus */
-/* eslint-disable no-unused-vars */
-
-
-
-const playerBField = document.getElementById('playerB');
-const aiBField = document.getElementById('aiB');
-function createplayerBoard(boardField) {
-  let rowId = 0;
-  for (let i = 0; i < 100; i++) {
-    let columnId = i % 10;
-    const newItem = document.createElement('div');
-    newItem.id = `${rowId}${columnId}`;
-    newItem.classList.add('boardSpace');
-    boardField.appendChild(newItem);
-    if (columnId === 9) {
-      rowId++;
-    }
-  }
-}
-createplayerBoard(aiBField);
-const boardCells = document.querySelectorAll('.boardSpace');
-let playerBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_1__["default"]('playerOne');
-let aiBoard = new _gameBoard__WEBPACK_IMPORTED_MODULE_1__["default"]('playerTwo');
-let aiPlayer = (0,_players__WEBPACK_IMPORTED_MODULE_2__.comPlayer)(playerBoard);
-let humanPlayer = (0,_players__WEBPACK_IMPORTED_MODULE_2__.hPlayer)(aiBoard);
-let turnCount = 0;
-let computerAttempts = 0;
-playerBoard.placeShipH(playerBoard.ships.carrier, 1, 1);
-playerBoard.placeShipV(playerBoard.ships.battleship, 2, 0);
-playerBoard.placeShipH(playerBoard.ships.destroyer, 5, 5);
-playerBoard.placeShipV(playerBoard.ships.submarine, 7, 3);
-playerBoard.placeShipH(playerBoard.ships.patrol, 0, 6);
-
-// aiBoard.placeShipH(aiBoard.ships.patrol, 9, 1);
-// aiBoard.placeShipV(aiBoard.ships.submarine, 9, 9);
-// aiBoard.placeShipH(aiBoard.ships.destroyer, 0, 0);
-// aiBoard.placeShipV(aiBoard.ships.battleship, 2, 4);
-// aiBoard.placeShipH(aiBoard.ships.carrier, 7, 2);
-
-aiPlayer.randomSelection(aiBoard, aiBoard.ships.carrier);
-aiPlayer.randomSelection(aiBoard, aiBoard.ships.battleship);
-aiPlayer.randomSelection(aiBoard, aiBoard.ships.destroyer);
-aiPlayer.randomSelection(aiBoard, aiBoard.ships.submarine);
-aiPlayer.randomSelection(aiBoard, aiBoard.ships.patrol);
-createplayerBoard(playerBField);
-const playerGroup = document.querySelector('#playerB');
-const playerCells = playerGroup.querySelectorAll('div');
-console.log(aiBoard.gameB);
-function computerTurn(board) {
-  if (aiPlayer.randomAttack(board, 0, 9, 0, 9) === 'hit') {
-    playerCells.forEach(div => {
-      if (div.id === String(aiPlayer.attackCord[computerAttempts])) {
-        div.style.backgroundColor = '#F07B7B';
-        div.textContent = 'X';
-      }
-    });
-    if (playerBoard.reportAllSunk() === true) {
-      alert('Computer Wins');
-    } else {
-      computerAttempts++;
-      computerTurn(board);
-    }
-  } else {
-    playerCells.forEach(div => {
-      if (div.id === String(aiPlayer.attackCord[computerAttempts])) {
-        div.textContent = 'X';
-      }
-    });
-    computerAttempts++;
-  }
-}
-function playersTurn(element, board) {
-  if (element.textContent === 'X') {
-    alert('cannot be selected');
-  } else if (board.gameB[parseInt(element.id.charAt(0))][parseInt(element.id.charAt(1))] === null) {
-    element.textContent = 'X';
-    turnCount++;
-    humanPlayer.chooseAttack(board, parseInt(element.id.charAt(0)), parseInt(element.id.charAt(1)));
-    computerTurn(playerBoard);
-  } else {
-    humanPlayer.chooseAttack(board, parseInt(element.id.charAt(0)), parseInt(element.id.charAt(1)));
-    element.style.backgroundColor = '#F07B7B';
-    element.textContent = 'X';
-    if (aiBoard.reportAllSunk() === true) {
-      return alert('You win');
-    }
-    alert('hit');
-  }
-}
-boardCells.forEach(div => {
-  div.addEventListener('click', () => {
-    playersTurn(div, aiBoard);
-  });
-});
-})();
-
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
+/******/ 	
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
