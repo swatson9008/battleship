@@ -75,9 +75,10 @@ function playersTurn(element, board) {
     element.style.backgroundColor = '#F07B7B';
     element.textContent = 'X';
     if (aiBoard.reportAllSunk() === true) {
-      return alert('You win');
+      alert('You win');
+    } else if (aiBoard.reportAllSunk() === false) {
+      alert('Hit!');
     }
-    alert('hit');
   }
 }
 
