@@ -1,3 +1,5 @@
+/* eslint-disable no-template-curly-in-string */
+/* eslint-disable no-shadow */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-param-reassign */
@@ -65,6 +67,20 @@ boardCells.forEach((div) => {
   });
 });
 
+function paintCells(board) {
+  playerCells.forEach((cell) => {
+    cell.style.backgroundColor = '#44b5d8';
+  });
+  for (let i = 0; i < board.gameB.length; i++) {
+    for (let j = 0; j < board.gameB[i].length; j++) {
+      if (board.gameB[i][j] !== null) {
+        let coloredCell = document.getElementById(`${i}${j}`);
+        coloredCell.style.backgroundColor = '#235c6e';
+      }
+    }
+  }
+}
+
 function randomizePlacements(board) {
   board.refreshBoard();
   aiPlayer.randomSelection(board, board.ships.carrier);
@@ -78,6 +94,7 @@ randomizePlacements(aiBoard);
 randomButton.addEventListener('click', () => {
   randomizePlacements(playerBoard); console.log(playerBoard.gameB);
   gameStart.style.visibility = 'visible';
+  paintCells(playerBoard);
 });
 
 export { playerGroup, playerCells, boardCells };
