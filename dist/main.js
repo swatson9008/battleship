@@ -255,6 +255,12 @@ __webpack_require__.r(__webpack_exports__);
 
 const playerBField = document.getElementById('playerB');
 const aiBField = document.getElementById('aiB');
+const gameStart = document.getElementById('gameStart');
+function startGame() {
+  aiBField.style.visibility = 'visible';
+  gameStart.style.visibility = 'hidden';
+}
+gameStart.addEventListener('click', startGame);
 function createplayerBoard(boardField) {
   let rowId = 0;
   for (let i = 0; i < 100; i++) {
@@ -440,7 +446,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#playerB, #aiB {\n    display: grid;\n    align-items: center;\n    grid-template-columns: repeat(10, 1fr);\n    grid-template-rows: repeat(10, 1fr);\n    max-width: 600px;\n}\n\n.boardLayout > div {\n    border: 1px solid black;\n    padding: 5px;\n    background-color:rgb(68, 182, 216);\n    min-height: 50px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":";AACA;IACI,aAAa;IACb,mBAAmB;IACnB,sCAAsC;IACtC,mCAAmC;IACnC,gBAAgB;AACpB;;AAEA;IACI,uBAAuB;IACvB,YAAY;IACZ,kCAAkC;IAClC,gBAAgB;IAChB,aAAa;IACb,mBAAmB;IACnB,uBAAuB;AAC3B","sourcesContent":["\n#playerB, #aiB {\n    display: grid;\n    align-items: center;\n    grid-template-columns: repeat(10, 1fr);\n    grid-template-rows: repeat(10, 1fr);\n    max-width: 600px;\n}\n\n.boardLayout > div {\n    border: 1px solid black;\n    padding: 5px;\n    background-color:rgb(68, 182, 216);\n    min-height: 50px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "#gameStartArea {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n\n#labels {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n#boardC {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n#playerB {\n    grid-column: 1;\n}\n\n#aiB {\n    grid-column: 2;\n}\n\n#playerB, #aiB {\n    display: grid;\n    align-items: center;\n    grid-template-columns: repeat(10, 1fr);\n    grid-template-rows: repeat(10, 1fr);\n    max-width: 500px;\n}\n\n.boardLayout > div {\n    border: 1px solid black;\n    padding: 5px;\n    background-color:rgb(68, 182, 216);\n    min-height: 50px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n#aiB {\n    visibility: hidden;\n}", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,uBAAuB;IACvB,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,aAAa;IACb,mBAAmB;IACnB,sCAAsC;IACtC,mCAAmC;IACnC,gBAAgB;AACpB;;AAEA;IACI,uBAAuB;IACvB,YAAY;IACZ,kCAAkC;IAClC,gBAAgB;IAChB,aAAa;IACb,mBAAmB;IACnB,uBAAuB;AAC3B;;AAEA;IACI,kBAAkB;AACtB","sourcesContent":["#gameStartArea {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n\n#labels {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n#boardC {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n#playerB {\n    grid-column: 1;\n}\n\n#aiB {\n    grid-column: 2;\n}\n\n#playerB, #aiB {\n    display: grid;\n    align-items: center;\n    grid-template-columns: repeat(10, 1fr);\n    grid-template-rows: repeat(10, 1fr);\n    max-width: 500px;\n}\n\n.boardLayout > div {\n    border: 1px solid black;\n    padding: 5px;\n    background-color:rgb(68, 182, 216);\n    min-height: 50px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n#aiB {\n    visibility: hidden;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

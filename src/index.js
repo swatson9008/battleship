@@ -24,6 +24,14 @@ import {
 
 const playerBField = document.getElementById('playerB');
 const aiBField = document.getElementById('aiB');
+const gameStart = document.getElementById('gameStart');
+
+function startGame() {
+  aiBField.style.visibility = 'visible';
+  gameStart.style.visibility = 'hidden';
+}
+
+gameStart.addEventListener('click', startGame);
 
 function createplayerBoard(boardField) {
   let rowId = 0;

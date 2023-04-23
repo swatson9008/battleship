@@ -1,10 +1,33 @@
+#gameStartArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#labels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#boardC {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#playerB {
+    grid-column: 1;
+}
+
+#aiB {
+    grid-column: 2;
+}
 
 #playerB, #aiB {
     display: grid;
     align-items: center;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
-    max-width: 600px;
+    max-width: 500px;
 }
 
 .boardLayout > div {
@@ -15,4 +38,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#aiB {
+    visibility: hidden;
 }
