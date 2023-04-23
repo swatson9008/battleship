@@ -243,6 +243,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gameBoard */ "./src/gameBoard.js");
 /* harmony import */ var _players__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./players */ "./src/players.js");
 /* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./game */ "./src/game.js");
+/* eslint-disable no-template-curly-in-string */
+/* eslint-disable no-shadow */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-param-reassign */
@@ -297,6 +299,19 @@ boardCells.forEach(div => {
     (0,_game__WEBPACK_IMPORTED_MODULE_3__.playersTurn)(div, _game__WEBPACK_IMPORTED_MODULE_3__.aiBoard);
   });
 });
+function paintCells(board) {
+  playerCells.forEach(cell => {
+    cell.style.backgroundColor = '#44b5d8';
+  });
+  for (let i = 0; i < board.gameB.length; i++) {
+    for (let j = 0; j < board.gameB[i].length; j++) {
+      if (board.gameB[i][j] !== null) {
+        let coloredCell = document.getElementById(`${i}${j}`);
+        coloredCell.style.backgroundColor = '#235c6e';
+      }
+    }
+  }
+}
 function randomizePlacements(board) {
   board.refreshBoard();
   _game__WEBPACK_IMPORTED_MODULE_3__.aiPlayer.randomSelection(board, board.ships.carrier);
@@ -310,6 +325,7 @@ randomButton.addEventListener('click', () => {
   randomizePlacements(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard);
   console.log(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.gameB);
   gameStart.style.visibility = 'visible';
+  paintCells(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard);
 });
 
 
