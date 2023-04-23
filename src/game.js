@@ -56,7 +56,7 @@ function playersTurn(element, board) {
     humanPlayer.chooseAttack(board, parseInt(element.id.charAt(0)), parseInt(element.id.charAt(1)));
     element.style.backgroundColor = '#F07B7B';
     element.textContent = 'X';
-    if (aiBoard.reportAllSunk() === true) { return alert('You win'); } alert('hit');
+    if (aiBoard.reportAllSunk() === true) { alert('You win'); } else if (aiBoard.reportAllSunk() === false) { alert('Hit!'); }
   }
 }
 
