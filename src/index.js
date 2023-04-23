@@ -72,10 +72,12 @@ function randomizePlacements(board) {
   aiPlayer.randomSelection(board, board.ships.destroyer);
   aiPlayer.randomSelection(board, board.ships.submarine);
   aiPlayer.randomSelection(board, board.ships.patrol);
-  console.log(playerBoard.gameB);
 }
 
 randomizePlacements(aiBoard);
-randomButton.addEventListener('click', () => { randomizePlacements(playerBoard); });
+randomButton.addEventListener('click', () => {
+  randomizePlacements(playerBoard); console.log(playerBoard.gameB);
+  gameStart.style.visibility = 'visible';
+});
 
 export { playerGroup, playerCells, boardCells };
