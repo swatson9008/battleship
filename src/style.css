@@ -11,7 +11,7 @@
 
 #boardC {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 #playerB {
@@ -27,7 +27,7 @@
     align-items: center;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
-    max-width: 500px;
+    max-width: 400px;
 }
 
 .boardLayout > div {

@@ -39,6 +39,13 @@ const gameBoard = function (player) {
     return boardArray;
   }
 
+  function refreshBoard() {
+    for (let i = 0; i < gameB.length; i++) {
+      for (let j = 0; j < gameB[i].length; j++) {
+        gameB[i][j] = null;
+      }
+    }
+  }
   const ships = {
     carrier: shipFactory(5, 0),
     battleship: shipFactory(4, 0),
@@ -102,7 +109,7 @@ const gameBoard = function (player) {
   }
 
   return {
-    player, gameB, ships, missCount, sunkShips, placeShipH, placeShipV, placeShipD, receiveAttack, sunkShipCheck, reportAllSunk,
+    player, gameB, ships, missCount, sunkShips, refreshBoard, placeShipH, placeShipV, placeShipD, receiveAttack, sunkShipCheck, reportAllSunk,
   };
 };
 

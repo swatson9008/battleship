@@ -134,6 +134,13 @@ const gameBoard = function (player) {
     }
     return boardArray;
   }
+  function refreshBoard() {
+    for (let i = 0; i < gameB.length; i++) {
+      for (let j = 0; j < gameB[i].length; j++) {
+        gameB[i][j] = null;
+      }
+    }
+  }
   const ships = {
     carrier: (0,_ship__WEBPACK_IMPORTED_MODULE_0__["default"])(5, 0),
     battleship: (0,_ship__WEBPACK_IMPORTED_MODULE_0__["default"])(4, 0),
@@ -207,6 +214,7 @@ const gameBoard = function (player) {
     ships,
     missCount,
     sunkShips,
+    refreshBoard,
     placeShipH,
     placeShipV,
     placeShipD,
@@ -257,9 +265,12 @@ __webpack_require__.r(__webpack_exports__);
 const playerBField = document.getElementById('playerB');
 const aiBField = document.getElementById('aiB');
 const gameStart = document.getElementById('gameStart');
+const playerControls = document.getElementById('playerControl');
+const randomButton = document.getElementById('randomize');
 function startGame() {
   aiBField.style.visibility = 'visible';
   gameStart.style.visibility = 'hidden';
+  playerControls.remove();
 }
 gameStart.addEventListener('click', startGame);
 function createplayerBoard(boardField) {
@@ -277,16 +288,6 @@ function createplayerBoard(boardField) {
 }
 createplayerBoard(aiBField);
 const boardCells = document.querySelectorAll('.boardSpace');
-_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.placeShipH(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.ships.carrier, 1, 1);
-_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.placeShipV(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.ships.battleship, 2, 0);
-_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.placeShipH(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.ships.destroyer, 5, 5);
-_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.placeShipV(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.ships.submarine, 7, 3);
-_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.placeShipH(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.ships.patrol, 0, 6);
-_game__WEBPACK_IMPORTED_MODULE_3__.aiPlayer.randomSelection(_game__WEBPACK_IMPORTED_MODULE_3__.aiBoard, _game__WEBPACK_IMPORTED_MODULE_3__.aiBoard.ships.carrier);
-_game__WEBPACK_IMPORTED_MODULE_3__.aiPlayer.randomSelection(_game__WEBPACK_IMPORTED_MODULE_3__.aiBoard, _game__WEBPACK_IMPORTED_MODULE_3__.aiBoard.ships.battleship);
-_game__WEBPACK_IMPORTED_MODULE_3__.aiPlayer.randomSelection(_game__WEBPACK_IMPORTED_MODULE_3__.aiBoard, _game__WEBPACK_IMPORTED_MODULE_3__.aiBoard.ships.destroyer);
-_game__WEBPACK_IMPORTED_MODULE_3__.aiPlayer.randomSelection(_game__WEBPACK_IMPORTED_MODULE_3__.aiBoard, _game__WEBPACK_IMPORTED_MODULE_3__.aiBoard.ships.submarine);
-_game__WEBPACK_IMPORTED_MODULE_3__.aiPlayer.randomSelection(_game__WEBPACK_IMPORTED_MODULE_3__.aiBoard, _game__WEBPACK_IMPORTED_MODULE_3__.aiBoard.ships.patrol);
 createplayerBoard(playerBField);
 const playerGroup = document.querySelector('#playerB');
 const playerCells = playerGroup.querySelectorAll('div');
@@ -295,6 +296,19 @@ boardCells.forEach(div => {
   div.addEventListener('click', () => {
     (0,_game__WEBPACK_IMPORTED_MODULE_3__.playersTurn)(div, _game__WEBPACK_IMPORTED_MODULE_3__.aiBoard);
   });
+});
+function randomizePlacements(board) {
+  board.refreshBoard();
+  _game__WEBPACK_IMPORTED_MODULE_3__.aiPlayer.randomSelection(board, board.ships.carrier);
+  _game__WEBPACK_IMPORTED_MODULE_3__.aiPlayer.randomSelection(board, board.ships.battleship);
+  _game__WEBPACK_IMPORTED_MODULE_3__.aiPlayer.randomSelection(board, board.ships.destroyer);
+  _game__WEBPACK_IMPORTED_MODULE_3__.aiPlayer.randomSelection(board, board.ships.submarine);
+  _game__WEBPACK_IMPORTED_MODULE_3__.aiPlayer.randomSelection(board, board.ships.patrol);
+  console.log(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.gameB);
+}
+randomizePlacements(_game__WEBPACK_IMPORTED_MODULE_3__.aiBoard);
+randomButton.addEventListener('click', () => {
+  randomizePlacements(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard);
 });
 
 
@@ -447,7 +461,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "#gameStartArea {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n\n#labels {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n#boardC {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n#playerB {\n    grid-column: 1;\n}\n\n#aiB {\n    grid-column: 2;\n}\n\n#playerB, #aiB {\n    display: grid;\n    align-items: center;\n    grid-template-columns: repeat(10, 1fr);\n    grid-template-rows: repeat(10, 1fr);\n    max-width: 500px;\n}\n\n.boardLayout > div {\n    border: 1px solid black;\n    padding: 5px;\n    background-color:rgb(68, 182, 216);\n    min-height: 50px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n#aiB {\n    visibility: hidden;\n}", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,uBAAuB;IACvB,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,aAAa;IACb,mBAAmB;IACnB,sCAAsC;IACtC,mCAAmC;IACnC,gBAAgB;AACpB;;AAEA;IACI,uBAAuB;IACvB,YAAY;IACZ,kCAAkC;IAClC,gBAAgB;IAChB,aAAa;IACb,mBAAmB;IACnB,uBAAuB;AAC3B;;AAEA;IACI,kBAAkB;AACtB","sourcesContent":["#gameStartArea {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n\n#labels {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n#boardC {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n#playerB {\n    grid-column: 1;\n}\n\n#aiB {\n    grid-column: 2;\n}\n\n#playerB, #aiB {\n    display: grid;\n    align-items: center;\n    grid-template-columns: repeat(10, 1fr);\n    grid-template-rows: repeat(10, 1fr);\n    max-width: 500px;\n}\n\n.boardLayout > div {\n    border: 1px solid black;\n    padding: 5px;\n    background-color:rgb(68, 182, 216);\n    min-height: 50px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n#aiB {\n    visibility: hidden;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "#gameStartArea {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n\n#labels {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n#boardC {\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n}\n\n#playerB {\n    grid-column: 1;\n}\n\n#aiB {\n    grid-column: 2;\n}\n\n#playerB, #aiB {\n    display: grid;\n    align-items: center;\n    grid-template-columns: repeat(10, 1fr);\n    grid-template-rows: repeat(10, 1fr);\n    max-width: 400px;\n}\n\n.boardLayout > div {\n    border: 1px solid black;\n    padding: 5px;\n    background-color:rgb(68, 182, 216);\n    min-height: 50px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n#aiB {\n    visibility: hidden;\n}", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,uBAAuB;IACvB,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,kCAAkC;AACtC;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,aAAa;IACb,mBAAmB;IACnB,sCAAsC;IACtC,mCAAmC;IACnC,gBAAgB;AACpB;;AAEA;IACI,uBAAuB;IACvB,YAAY;IACZ,kCAAkC;IAClC,gBAAgB;IAChB,aAAa;IACb,mBAAmB;IACnB,uBAAuB;AAC3B;;AAEA;IACI,kBAAkB;AACtB","sourcesContent":["#gameStartArea {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n\n#labels {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n#boardC {\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n}\n\n#playerB {\n    grid-column: 1;\n}\n\n#aiB {\n    grid-column: 2;\n}\n\n#playerB, #aiB {\n    display: grid;\n    align-items: center;\n    grid-template-columns: repeat(10, 1fr);\n    grid-template-rows: repeat(10, 1fr);\n    max-width: 400px;\n}\n\n.boardLayout > div {\n    border: 1px solid black;\n    padding: 5px;\n    background-color:rgb(68, 182, 216);\n    min-height: 50px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n#aiB {\n    visibility: hidden;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -25,10 +25,13 @@ import {
 const playerBField = document.getElementById('playerB');
 const aiBField = document.getElementById('aiB');
 const gameStart = document.getElementById('gameStart');
+const playerControls = document.getElementById('playerControl');
+const randomButton = document.getElementById('randomize');
 
 function startGame() {
   aiBField.style.visibility = 'visible';
   gameStart.style.visibility = 'hidden';
+  playerControls.remove();
 }
 
 gameStart.addEventListener('click', startGame);
@@ -49,18 +52,6 @@ createplayerBoard(aiBField);
 
 const boardCells = document.querySelectorAll('.boardSpace');
 
-playerBoard.placeShipH(playerBoard.ships.carrier, 1, 1);
-playerBoard.placeShipV(playerBoard.ships.battleship, 2, 0);
-playerBoard.placeShipH(playerBoard.ships.destroyer, 5, 5);
-playerBoard.placeShipV(playerBoard.ships.submarine, 7, 3);
-playerBoard.placeShipH(playerBoard.ships.patrol, 0, 6);
-
-aiPlayer.randomSelection(aiBoard, aiBoard.ships.carrier);
-aiPlayer.randomSelection(aiBoard, aiBoard.ships.battleship);
-aiPlayer.randomSelection(aiBoard, aiBoard.ships.destroyer);
-aiPlayer.randomSelection(aiBoard, aiBoard.ships.submarine);
-aiPlayer.randomSelection(aiBoard, aiBoard.ships.patrol);
-
 createplayerBoard(playerBField);
 
 const playerGroup = document.querySelector('#playerB');
@@ -73,5 +64,18 @@ boardCells.forEach((div) => {
     playersTurn(div, aiBoard);
   });
 });
+
+function randomizePlacements(board) {
+  board.refreshBoard();
+  aiPlayer.randomSelection(board, board.ships.carrier);
+  aiPlayer.randomSelection(board, board.ships.battleship);
+  aiPlayer.randomSelection(board, board.ships.destroyer);
+  aiPlayer.randomSelection(board, board.ships.submarine);
+  aiPlayer.randomSelection(board, board.ships.patrol);
+  console.log(playerBoard.gameB);
+}
+
+randomizePlacements(aiBoard);
+randomButton.addEventListener('click', () => { randomizePlacements(playerBoard); });
 
 export { playerGroup, playerCells, boardCells };
