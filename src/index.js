@@ -29,6 +29,9 @@ const aiBField = document.getElementById('aiB');
 const gameStart = document.getElementById('gameStart');
 const playerControls = document.getElementById('playerControl');
 const randomButton = document.getElementById('randomize');
+const shipSwap = document.getElementById('shipHV');
+
+let orientationSetting = 'horizontal';
 
 function startGame() {
   aiBField.style.visibility = 'visible';
@@ -95,6 +98,36 @@ randomButton.addEventListener('click', () => {
   randomizePlacements(playerBoard); console.log(playerBoard.gameB);
   gameStart.style.visibility = 'visible';
   paintCells(playerBoard);
+});
+
+function switchOrientation() {
+  if (orientationSetting === 'horizontal') { orientationSetting = 'vertical'; } else { orientationSetting = 'horizontal'; }
+  console.log(orientationSetting);
+}
+
+shipSwap.addEventListener('click', () => { switchOrientation(); });
+
+function determineShip(board) {
+  let nullCount = 0;
+  for (let i = 0; i < board.gameB.length; i++) {
+    for (let j = 0; j < board.gameB[i].length; j++) {
+      if (board.gameB[i][j] !== null) {
+        nullCount++;
+      }
+    }
+  }
+  if (nullCount === 0) { return board.ships.carrier; }
+  if (nullCount === 5) { return board.ships.battleship; }
+  if (nullCount === 9) { return board.ships.destroyer; }
+  if (nullCount === 12) { return board.ships.submarine; }
+  if (nullCount === 15) { return board.ships.patrol; }
+  if (nullCount === 17) { return 'done'; }
+}
+
+playerCells.forEach((cell) => {
+  cell.addEventListener('click', () => {
+    determineShip(playerBoard);
+  });
 });
 
 export { playerGroup, playerCells, boardCells };
