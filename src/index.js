@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-template-curly-in-string */
 /* eslint-disable no-shadow */
 /* eslint-disable import/no-cycle */
@@ -121,13 +122,31 @@ function determineShip(board) {
   if (nullCount === 9) { return board.ships.destroyer; }
   if (nullCount === 12) { return board.ships.submarine; }
   if (nullCount === 15) { return board.ships.patrol; }
-  if (nullCount === 17) { return 'done'; }
+  return 'done';
+}
+
+function checkIfDone(board) {
+  if (determineShip(board) === 'done') { gameStart.style.visibility = 'visible'; }
+}
+
+function placeAShip(board, coord1, coord2) {
+  let ship = determineShip(board);
+  if (ship === 'done') { return alert('cant place anymore ships!'); }
+  if (orientationSetting === 'horizontal') { board.placeShipH(ship, Number(coord1), Number(coord2)); } else { board.placeShipV(ship, Number(coord1), Number(coord2)); }
+  paintCells(board);
+  console.log(playerBoard.gameB);
 }
 
 playerCells.forEach((cell) => {
-  cell.addEventListener('click', () => {
-    determineShip(playerBoard);
+  cell.addEventListener('click', (event) => {
+    const coord = event.target.id.toString();
+    const coord1 = coord.charAt(0);
+    const coord2 = coord.charAt(1);
+    placeAShip(playerBoard, coord1, coord2);
+    checkIfDone(playerBoard);
   });
 });
 
-export { playerGroup, playerCells, boardCells };
+export {
+  playerGroup, playerCells, boardCells, determineShip,
+};

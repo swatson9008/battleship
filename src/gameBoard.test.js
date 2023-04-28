@@ -1,3 +1,6 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-plusplus */
+/* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 /* eslint-disable import/no-duplicates */
 /* eslint-disable no-constant-condition */
@@ -6,6 +9,7 @@
 import gameBoard from './gameBoard';
 
 const playerBoard = new gameBoard('playerOne');
+
 playerBoard.placeShipH(playerBoard.ships.carrier, 2, 2);
 playerBoard.placeShipV(playerBoard.ships.patrol, 1, 1);
 
