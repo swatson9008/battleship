@@ -236,6 +236,7 @@ const gameBoard = function (player) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "boardCells": () => (/* binding */ boardCells),
+/* harmony export */   "determineShip": () => (/* binding */ determineShip),
 /* harmony export */   "playerCells": () => (/* binding */ playerCells),
 /* harmony export */   "playerGroup": () => (/* binding */ playerGroup)
 /* harmony export */ });
@@ -243,6 +244,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gameBoard */ "./src/gameBoard.js");
 /* harmony import */ var _players__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./players */ "./src/players.js");
 /* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./game */ "./src/game.js");
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-template-curly-in-string */
 /* eslint-disable no-shadow */
 /* eslint-disable import/no-cycle */
@@ -364,13 +366,33 @@ function determineShip(board) {
   if (nullCount === 15) {
     return board.ships.patrol;
   }
-  if (nullCount === 17) {
-    return 'done';
+  return 'done';
+}
+function checkIfDone(board) {
+  if (determineShip(board) === 'done') {
+    gameStart.style.visibility = 'visible';
   }
 }
+function placeAShip(board, coord1, coord2) {
+  let ship = determineShip(board);
+  if (ship === 'done') {
+    return alert('cant place anymore ships!');
+  }
+  if (orientationSetting === 'horizontal') {
+    board.placeShipH(ship, Number(coord1), Number(coord2));
+  } else {
+    board.placeShipV(ship, Number(coord1), Number(coord2));
+  }
+  paintCells(board);
+  console.log(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard.gameB);
+}
 playerCells.forEach(cell => {
-  cell.addEventListener('click', () => {
-    determineShip(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard);
+  cell.addEventListener('click', event => {
+    const coord = event.target.id.toString();
+    const coord1 = coord.charAt(0);
+    const coord2 = coord.charAt(1);
+    placeAShip(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard, coord1, coord2);
+    checkIfDone(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard);
   });
 });
 
