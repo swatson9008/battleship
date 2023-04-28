@@ -20,6 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameBoard */ "./src/gameBoard.js");
 /* harmony import */ var _players__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./players */ "./src/players.js");
 /* harmony import */ var ___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! . */ "./src/index.js");
+/* eslint-disable import/named */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-alert */
 /* eslint-disable no-const-assign */
@@ -235,7 +236,6 @@ const gameBoard = function (player) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "boardCells": () => (/* binding */ boardCells),
 /* harmony export */   "determineShip": () => (/* binding */ determineShip),
 /* harmony export */   "playerCells": () => (/* binding */ playerCells),
 /* harmony export */   "playerGroup": () => (/* binding */ playerGroup)
@@ -272,13 +272,8 @@ const gameStart = document.getElementById('gameStart');
 const playerControls = document.getElementById('playerControl');
 const randomButton = document.getElementById('randomize');
 const shipSwap = document.getElementById('shipHV');
+const aiLabel = document.getElementById('cLabel');
 let orientationSetting = 'horizontal';
-function startGame() {
-  aiBField.style.visibility = 'visible';
-  gameStart.style.visibility = 'hidden';
-  playerControls.remove();
-}
-gameStart.addEventListener('click', startGame);
 function createplayerBoard(boardField) {
   let rowId = 0;
   for (let i = 0; i < 100; i++) {
@@ -292,17 +287,11 @@ function createplayerBoard(boardField) {
     }
   }
 }
-createplayerBoard(aiBField);
-const boardCells = document.querySelectorAll('.boardSpace');
+const aiGroup = document.querySelector('#aiB');
 createplayerBoard(playerBField);
 const playerGroup = document.querySelector('#playerB');
 const playerCells = playerGroup.querySelectorAll('div');
 console.log(_game__WEBPACK_IMPORTED_MODULE_3__.aiBoard.gameB);
-boardCells.forEach(div => {
-  div.addEventListener('click', () => {
-    (0,_game__WEBPACK_IMPORTED_MODULE_3__.playersTurn)(div, _game__WEBPACK_IMPORTED_MODULE_3__.aiBoard);
-  });
-});
 function paintCells(board) {
   playerCells.forEach(cell => {
     cell.style.backgroundColor = '#44b5d8';
@@ -395,6 +384,20 @@ playerCells.forEach(cell => {
     checkIfDone(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard);
   });
 });
+function startGame() {
+  aiBField.style.visibility = 'visible';
+  gameStart.style.visibility = 'hidden';
+  aiLabel.style.visibility = 'visible';
+  playerControls.remove();
+  createplayerBoard(aiBField);
+  const aiCells = aiGroup.querySelectorAll('div');
+  aiCells.forEach(div => {
+    div.addEventListener('click', () => {
+      (0,_game__WEBPACK_IMPORTED_MODULE_3__.playersTurn)(div, _game__WEBPACK_IMPORTED_MODULE_3__.aiBoard);
+    });
+  });
+}
+gameStart.addEventListener('click', startGame);
 
 
 /***/ }),
@@ -546,7 +549,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "#gameStartArea {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    visibility: hidden;\n}\n\n#labels {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n#playerB {\n    grid-column: 1;\n}\n\n#aiB {\n    grid-column: 2;\n}\n\n#playerB, #aiB {\n    display: grid;\n    align-items: center;\n    grid-template-columns: repeat(10, 1fr);\n    grid-template-rows: repeat(10, 1fr);\n    max-width: 400px;\n    margin-bottom: 20px;\n}\n\n.boardLayout > div {\n    border: 1px solid black;\n    padding: 5px;\n    background-color:rgb(68, 182, 216);\n    min-height: 50px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n#aiB {\n    visibility: hidden;\n}\n\n@media (min-width: 1201px){\n    #boardC {\n        display: grid;\n        grid-template-columns: 1fr 1fr 1fr;\n    }\n\n}\n\n@media (max-width: 1200px){\n    #boardC {\n        \n    }\n\n}", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,uBAAuB;IACvB,mBAAmB;IACnB,kBAAkB;AACtB;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,aAAa;IACb,mBAAmB;IACnB,sCAAsC;IACtC,mCAAmC;IACnC,gBAAgB;IAChB,mBAAmB;AACvB;;AAEA;IACI,uBAAuB;IACvB,YAAY;IACZ,kCAAkC;IAClC,gBAAgB;IAChB,aAAa;IACb,mBAAmB;IACnB,uBAAuB;AAC3B;;AAEA;IACI,kBAAkB;AACtB;;AAEA;IACI;QACI,aAAa;QACb,kCAAkC;IACtC;;AAEJ;;AAEA;IACI;;IAEA;;AAEJ","sourcesContent":["#gameStartArea {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    visibility: hidden;\n}\n\n#labels {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n#playerB {\n    grid-column: 1;\n}\n\n#aiB {\n    grid-column: 2;\n}\n\n#playerB, #aiB {\n    display: grid;\n    align-items: center;\n    grid-template-columns: repeat(10, 1fr);\n    grid-template-rows: repeat(10, 1fr);\n    max-width: 400px;\n    margin-bottom: 20px;\n}\n\n.boardLayout > div {\n    border: 1px solid black;\n    padding: 5px;\n    background-color:rgb(68, 182, 216);\n    min-height: 50px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n#aiB {\n    visibility: hidden;\n}\n\n@media (min-width: 1201px){\n    #boardC {\n        display: grid;\n        grid-template-columns: 1fr 1fr 1fr;\n    }\n\n}\n\n@media (max-width: 1200px){\n    #boardC {\n        \n    }\n\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "#gameStartArea {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    visibility: hidden;\n}\n\n#labels {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n#cLabel {\n    visibility: hidden;\n}\n\n#playerB {\n    grid-column: 1;\n}\n\n#aiB {\n    grid-column: 2;\n}\n\n#playerB, #aiB {\n    display: grid;\n    align-items: center;\n    grid-template-columns: repeat(10, 1fr);\n    grid-template-rows: repeat(10, 1fr);\n    max-width: 400px;\n}\n\n.boardLayout > div {\n    border: 1px solid black;\n    padding: 5px;\n    background-color:rgb(68, 182, 216);\n    min-height: 50px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n#aiB {\n    visibility: hidden;\n}\n\n@media (min-width: 1201px){\n    #boardC {\n        display: grid;\n        grid-template-columns: 1fr 1fr 1fr;\n    }\n\n}\n\n@media (max-width: 1200px){\n    #boardC {\n        \n    }\n\n}", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,uBAAuB;IACvB,mBAAmB;IACnB,kBAAkB;AACtB;;AAEA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,kBAAkB;AACtB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,aAAa;IACb,mBAAmB;IACnB,sCAAsC;IACtC,mCAAmC;IACnC,gBAAgB;AACpB;;AAEA;IACI,uBAAuB;IACvB,YAAY;IACZ,kCAAkC;IAClC,gBAAgB;IAChB,aAAa;IACb,mBAAmB;IACnB,uBAAuB;AAC3B;;AAEA;IACI,kBAAkB;AACtB;;AAEA;IACI;QACI,aAAa;QACb,kCAAkC;IACtC;;AAEJ;;AAEA;IACI;;IAEA;;AAEJ","sourcesContent":["#gameStartArea {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    visibility: hidden;\n}\n\n#labels {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n#cLabel {\n    visibility: hidden;\n}\n\n#playerB {\n    grid-column: 1;\n}\n\n#aiB {\n    grid-column: 2;\n}\n\n#playerB, #aiB {\n    display: grid;\n    align-items: center;\n    grid-template-columns: repeat(10, 1fr);\n    grid-template-rows: repeat(10, 1fr);\n    max-width: 400px;\n}\n\n.boardLayout > div {\n    border: 1px solid black;\n    padding: 5px;\n    background-color:rgb(68, 182, 216);\n    min-height: 50px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n#aiB {\n    visibility: hidden;\n}\n\n@media (min-width: 1201px){\n    #boardC {\n        display: grid;\n        grid-template-columns: 1fr 1fr 1fr;\n    }\n\n}\n\n@media (max-width: 1200px){\n    #boardC {\n        \n    }\n\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
