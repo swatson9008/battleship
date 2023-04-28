@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-alert */
 /* eslint-disable no-const-assign */
@@ -12,7 +13,7 @@ import gameBoard from './gameBoard';
 import {
   hPlayer, comPlayer,
 } from './players';
-import { playerGroup, playerCells, boardCells } from '.';
+import { playerGroup, playerCells } from '.';
 
 let turnCount = 0;
 

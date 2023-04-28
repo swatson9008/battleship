@@ -31,16 +31,9 @@ const gameStart = document.getElementById('gameStart');
 const playerControls = document.getElementById('playerControl');
 const randomButton = document.getElementById('randomize');
 const shipSwap = document.getElementById('shipHV');
+const aiLabel = document.getElementById('cLabel');
 
 let orientationSetting = 'horizontal';
-
-function startGame() {
-  aiBField.style.visibility = 'visible';
-  gameStart.style.visibility = 'hidden';
-  playerControls.remove();
-}
-
-gameStart.addEventListener('click', startGame);
 
 function createplayerBoard(boardField) {
   let rowId = 0;
@@ -54,9 +47,7 @@ function createplayerBoard(boardField) {
   }
 }
 
-createplayerBoard(aiBField);
-
-const boardCells = document.querySelectorAll('.boardSpace');
+const aiGroup = document.querySelector('#aiB');
 
 createplayerBoard(playerBField);
 
@@ -64,12 +55,6 @@ const playerGroup = document.querySelector('#playerB');
 const playerCells = playerGroup.querySelectorAll('div');
 
 console.log(aiBoard.gameB);
-
-boardCells.forEach((div) => {
-  div.addEventListener('click', () => {
-    playersTurn(div, aiBoard);
-  });
-});
 
 function paintCells(board) {
   playerCells.forEach((cell) => {
@@ -147,6 +132,22 @@ playerCells.forEach((cell) => {
   });
 });
 
+function startGame() {
+  aiBField.style.visibility = 'visible';
+  gameStart.style.visibility = 'hidden';
+  aiLabel.style.visibility = 'visible';
+  playerControls.remove();
+  createplayerBoard(aiBField);
+  const aiCells = aiGroup.querySelectorAll('div');
+  aiCells.forEach((div) => {
+    div.addEventListener('click', () => {
+      playersTurn(div, aiBoard);
+    });
+  });
+}
+
+gameStart.addEventListener('click', startGame);
+
 export {
-  playerGroup, playerCells, boardCells, determineShip,
+  playerGroup, playerCells, determineShip,
 };

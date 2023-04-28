@@ -10,6 +10,10 @@
     grid-template-columns: 1fr 1fr;
 }
 
+#cLabel {
+    visibility: hidden;
+}
+
 #playerB {
     grid-column: 1;
 }
@@ -24,7 +28,6 @@
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
     max-width: 400px;
-    margin-bottom: 20px;
 }
 
 .boardLayout > div {
