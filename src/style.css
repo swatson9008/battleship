@@ -44,6 +44,10 @@
     visibility: hidden;
 }
 
+.tempColor.hover{
+    background-color: blueviolet;
+}
+
 @media (min-width: 1201px){
     #boardC {
         display: grid;

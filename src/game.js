@@ -1,3 +1,7 @@
+/* eslint-disable import/no-mutable-exports */
+/* eslint-disable no-import-assign */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-use-before-define */
 /* eslint-disable import/named */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-alert */
@@ -13,7 +17,9 @@ import gameBoard from './gameBoard';
 import {
   hPlayer, comPlayer,
 } from './players';
-import { playerGroup, playerCells } from '.';
+import {
+  playerGroup, playerCells, aiGroup,
+} from '.';
 
 let turnCount = 0;
 
@@ -25,6 +31,13 @@ const humanPlayer = hPlayer();
 
 let computerAttempts = 0;
 
+let winnerCheck = false;
+
+function winState() {
+  winnerCheck = true;
+  if (this === 'player') { alert('you win'); } else { alert('computer wins'); }
+}
+
 function computerTurn(board) {
   if (aiPlayer.randomAttack(board, 0, 9, 0, 9) === 'hit') {
     playerCells.forEach((div) => {
@@ -33,7 +46,7 @@ function computerTurn(board) {
         div.textContent = 'X';
       }
     });
-    if (playerBoard.reportAllSunk() === true) { alert('Computer Wins'); } else {
+    if (playerBoard.reportAllSunk() === true) { winState.call('computer'); } else {
       computerAttempts++;
       computerTurn(board);
     }
@@ -57,10 +70,10 @@ function playersTurn(element, board) {
     humanPlayer.chooseAttack(board, parseInt(element.id.charAt(0)), parseInt(element.id.charAt(1)));
     element.style.backgroundColor = '#F07B7B';
     element.textContent = 'X';
-    if (aiBoard.reportAllSunk() === true) { alert('You win'); } else if (aiBoard.reportAllSunk() === false) { alert('Hit!'); }
+    if (aiBoard.reportAllSunk() === true) { winState.call('player'); } else if (aiBoard.reportAllSunk() === false) { alert('Hit!'); }
   }
 }
 
 export {
-  playersTurn, computerTurn, aiPlayer, humanPlayer, aiBoard, playerBoard,
+  playersTurn, computerTurn, winState, winnerCheck, aiPlayer, humanPlayer, aiBoard, playerBoard,
 };

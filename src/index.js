@@ -1,3 +1,5 @@
+/* eslint-disable import/no-mutable-exports */
+/* eslint-disable prefer-arrow-callback */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-template-curly-in-string */
 /* eslint-disable no-shadow */
@@ -22,7 +24,7 @@ import {
   hPlayer, comPlayer,
 } from './players';
 import {
-  aiPlayer, humanPlayer, aiBoard, playerBoard, computerTurn, playersTurn,
+  aiPlayer, humanPlayer, winState, winnerCheck, aiBoard, playerBoard, computerTurn, playersTurn,
 } from './game';
 
 const playerBField = document.getElementById('playerB');
@@ -88,7 +90,6 @@ randomButton.addEventListener('click', () => {
 
 function switchOrientation() {
   if (orientationSetting === 'horizontal') { orientationSetting = 'vertical'; } else { orientationSetting = 'horizontal'; }
-  console.log(orientationSetting);
 }
 
 shipSwap.addEventListener('click', () => { switchOrientation(); });
@@ -122,6 +123,14 @@ function placeAShip(board, coord1, coord2) {
   console.log(playerBoard.gameB);
 }
 
+function addColor() {
+  this.style.backgroundColor = '#235c6e';
+}
+
+function removeColor() {
+  this.style.backgroundColor = '#44b5d8';
+}
+
 playerCells.forEach((cell) => {
   cell.addEventListener('click', (event) => {
     const coord = event.target.id.toString();
@@ -130,6 +139,8 @@ playerCells.forEach((cell) => {
     placeAShip(playerBoard, coord1, coord2);
     checkIfDone(playerBoard);
   });
+  cell.addEventListener('mouseover', addColor);
+  cell.addEventListener('mouseout', removeColor);
 });
 
 function startGame() {
@@ -141,13 +152,17 @@ function startGame() {
   const aiCells = aiGroup.querySelectorAll('div');
   aiCells.forEach((div) => {
     div.addEventListener('click', () => {
-      playersTurn(div, aiBoard);
+      if (winnerCheck === true) { return alert('game finished'); } playersTurn(div, aiBoard);
     });
+  });
+  playerCells.forEach((cell) => {
+    cell.removeEventListener('mouseover', addColor);
+    cell.removeEventListener('mouseout', removeColor);
   });
 }
 
 gameStart.addEventListener('click', startGame);
 
 export {
-  playerGroup, playerCells, determineShip,
+  playerGroup, playerCells, determineShip, aiGroup,
 };
