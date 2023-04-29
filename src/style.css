@@ -1,3 +1,7 @@
+#mainContainer {
+    margin-top: 30px;
+}
+
 #gameStartArea {
     display: flex;
     justify-content: center;
@@ -7,19 +11,40 @@
 
 #labels {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 2fr 2fr 1fr;
+}
+
+#pLabel {
+    grid-column: 2;
 }
 
 #cLabel {
     visibility: hidden;
+    grid-column: 3;
 }
 
 #playerB {
-    grid-column: 1;
+    grid-column: 2;
 }
 
 #aiB {
-    grid-column: 2;
+    grid-column: 3;
+}
+
+#playerControl {
+    grid-column: 3;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column-reverse;
+    justify-content: center;
+}
+
+#gameInfo {
+    grid-column: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px;
 }
 
 #playerB, #aiB {
@@ -44,14 +69,10 @@
     visibility: hidden;
 }
 
-.tempColor.hover{
-    background-color: blueviolet;
-}
-
 @media (min-width: 1201px){
     #boardC {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 2fr 2fr 1fr;
     }
 
 }
