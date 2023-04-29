@@ -46,6 +46,7 @@ function createplayerBoard(boardField) {
     newItem.classList.add('boardSpace');
     boardField.appendChild(newItem);
     if (columnId === 9) { rowId++; }
+    newItem.style.backgroundColor = 'rgb(68, 182, 216)';
   }
 }
 
@@ -60,13 +61,13 @@ console.log(aiBoard.gameB);
 
 function paintCells(board) {
   playerCells.forEach((cell) => {
-    cell.style.backgroundColor = '#44b5d8';
+    cell.style.backgroundColor = 'rgb(68, 182, 216)';
   });
   for (let i = 0; i < board.gameB.length; i++) {
     for (let j = 0; j < board.gameB[i].length; j++) {
       if (board.gameB[i][j] !== null) {
         let coloredCell = document.getElementById(`${i}${j}`);
-        coloredCell.style.backgroundColor = '#235c6e';
+        coloredCell.style.backgroundColor = 'rgb(35, 92, 110)';
       }
     }
   }
@@ -124,11 +125,19 @@ function placeAShip(board, coord1, coord2) {
 }
 
 function addColor() {
-  this.style.backgroundColor = '#235c6e';
+  if (this.style.backgroundColor !== 'rgb(68, 182, 216)') {
+    this.style.backgroundColor = 'rgb(209, 78, 78)';
+  } else {
+    this.style.backgroundColor = 'rgb(35, 92, 110)';
+  }
 }
 
 function removeColor() {
-  this.style.backgroundColor = '#44b5d8';
+  if (this.style.backgroundColor === 'rgb(209, 78, 78)') {
+    this.style.backgroundColor = 'rgb(35, 92, 110)';
+  } else {
+    this.style.backgroundColor = 'rgb(68, 182, 216)';
+  }
 }
 
 playerCells.forEach((cell) => {
