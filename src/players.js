@@ -64,8 +64,30 @@ const comPlayer = function (name) {
     }
   }
 
+  function smartPick(n) {
+    let min = Math.max(n - 1);
+    let max = Math.min(n + 1);
+    let randno = Math.floor(Math.random() * (max - min + 1) + min);
+    if (randno > 9) { randno = 9; }
+    return randno;
+  }
+
+  function smartAttack(board, row, col) {
+    let smartRow = smartPick(row);
+    let smartCol = smartPick(col);
+    if (attackCord.some((element) => element[0] === smartCol && element[1] === smartRow)) { smartAttack(board, row, col); }
+    if (board.gameB[smartRow][smartCol] != null) {
+      attackCord.push([`${smartRow}${smartCol}`]);
+      board.receiveAttack(smartRow, smartCol);
+      return 'hit';
+    } else {
+      attackCord.push([`${smartRow}${smartCol}`]);
+      board.receiveAttack(smartRow, smartCol);
+    }
+  }
+
   return {
-    attackCord, randomAttack, randomSelection,
+    attackCord, smartPick, smartAttack, randomAttack, randomSelection,
   };
 };
 

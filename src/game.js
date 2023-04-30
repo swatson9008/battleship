@@ -1,3 +1,6 @@
+/* eslint-disable prefer-const */
+/* eslint-disable no-empty */
+/* eslint-disable max-len */
 /* eslint-disable import/no-mutable-exports */
 /* eslint-disable no-import-assign */
 /* eslint-disable no-unused-expressions */
@@ -33,13 +36,39 @@ let computerAttempts = 0;
 
 let winnerCheck = false;
 
+let useSmartAttack = false;
+
 function winState() {
   winnerCheck = true;
   if (this === 'player') { alert('you win'); } else { alert('computer wins'); }
 }
 
 function computerTurn(board) {
-  if (aiPlayer.randomAttack(board, 0, 9, 0, 9) === 'hit') {
+  if (useSmartAttack === true) {
+    let coord = Number(computerAttempts) - 1;
+    let row = String(aiPlayer.attackCord[coord])[0];
+    let col = String(aiPlayer.attackCord[coord])[1];
+    if (aiPlayer.smartAttack(board, row, col) === 'hit') {
+      playerCells.forEach((div) => {
+        if (div.id === String(aiPlayer.attackCord[computerAttempts])) {
+          div.style.backgroundColor = '#F07B7B';
+          div.textContent = 'X';
+        }
+      });
+      if (playerBoard.reportAllSunk() === true) { winState.call('computer'); } else {
+        computerAttempts++;
+        computerTurn(board);
+      }
+    } else {
+      playerCells.forEach((div) => {
+        if (div.id === String(aiPlayer.attackCord[computerAttempts])) {
+          div.textContent = 'X';
+        }
+      });
+      useSmartAttack = false;
+      computerAttempts++;
+    }
+  } else if (aiPlayer.randomAttack(board, 0, 9, 0, 9) === 'hit') {
     playerCells.forEach((div) => {
       if (div.id === String(aiPlayer.attackCord[computerAttempts])) {
         div.style.backgroundColor = '#F07B7B';
@@ -47,6 +76,7 @@ function computerTurn(board) {
       }
     });
     if (playerBoard.reportAllSunk() === true) { winState.call('computer'); } else {
+      useSmartAttack = true;
       computerAttempts++;
       computerTurn(board);
     }

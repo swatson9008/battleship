@@ -22,6 +22,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameBoard */ "./src/gameBoard.js");
 /* harmony import */ var _players__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./players */ "./src/players.js");
 /* harmony import */ var ___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! . */ "./src/index.js");
+/* eslint-disable prefer-const */
+/* eslint-disable no-empty */
+/* eslint-disable max-len */
 /* eslint-disable import/no-mutable-exports */
 /* eslint-disable no-import-assign */
 /* eslint-disable no-unused-expressions */
@@ -47,6 +50,7 @@ const aiPlayer = (0,_players__WEBPACK_IMPORTED_MODULE_1__.comPlayer)();
 const humanPlayer = (0,_players__WEBPACK_IMPORTED_MODULE_1__.hPlayer)();
 let computerAttempts = 0;
 let winnerCheck = false;
+let useSmartAttack = false;
 function winState() {
   winnerCheck = true;
   if (this === 'player') {
@@ -56,7 +60,33 @@ function winState() {
   }
 }
 function computerTurn(board) {
-  if (aiPlayer.randomAttack(board, 0, 9, 0, 9) === 'hit') {
+  if (useSmartAttack === true) {
+    let coord = Number(computerAttempts) - 1;
+    let row = String(aiPlayer.attackCord[coord])[0];
+    let col = String(aiPlayer.attackCord[coord])[1];
+    if (aiPlayer.smartAttack(board, row, col) === 'hit') {
+      ___WEBPACK_IMPORTED_MODULE_2__.playerCells.forEach(div => {
+        if (div.id === String(aiPlayer.attackCord[computerAttempts])) {
+          div.style.backgroundColor = '#F07B7B';
+          div.textContent = 'X';
+        }
+      });
+      if (playerBoard.reportAllSunk() === true) {
+        winState.call('computer');
+      } else {
+        computerAttempts++;
+        computerTurn(board);
+      }
+    } else {
+      ___WEBPACK_IMPORTED_MODULE_2__.playerCells.forEach(div => {
+        if (div.id === String(aiPlayer.attackCord[computerAttempts])) {
+          div.textContent = 'X';
+        }
+      });
+      useSmartAttack = false;
+      computerAttempts++;
+    }
+  } else if (aiPlayer.randomAttack(board, 0, 9, 0, 9) === 'hit') {
     ___WEBPACK_IMPORTED_MODULE_2__.playerCells.forEach(div => {
       if (div.id === String(aiPlayer.attackCord[computerAttempts])) {
         div.style.backgroundColor = '#F07B7B';
@@ -66,6 +96,7 @@ function computerTurn(board) {
     if (playerBoard.reportAllSunk() === true) {
       winState.call('computer');
     } else {
+      useSmartAttack = true;
       computerAttempts++;
       computerTurn(board);
     }
@@ -518,8 +549,34 @@ const comPlayer = function (name) {
       randomSelection(board, ship);
     }
   }
+  function smartPick(n) {
+    let min = Math.max(n - 1);
+    let max = Math.min(n + 1);
+    let randno = Math.floor(Math.random() * (max - min + 1) + min);
+    if (randno > 9) {
+      randno = 9;
+    }
+    return randno;
+  }
+  function smartAttack(board, row, col) {
+    let smartRow = smartPick(row);
+    let smartCol = smartPick(col);
+    if (attackCord.some(element => element[0] === smartCol && element[1] === smartRow)) {
+      smartAttack(board, row, col);
+    }
+    if (board.gameB[smartRow][smartCol] != null) {
+      attackCord.push([`${smartRow}${smartCol}`]);
+      board.receiveAttack(smartRow, smartCol);
+      return 'hit';
+    } else {
+      attackCord.push([`${smartRow}${smartCol}`]);
+      board.receiveAttack(smartRow, smartCol);
+    }
+  }
   return {
     attackCord,
+    smartPick,
+    smartAttack,
     randomAttack,
     randomSelection
   };
