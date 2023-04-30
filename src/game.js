@@ -1,3 +1,5 @@
+/* eslint-disable prefer-template */
+/* eslint-disable no-useless-concat */
 /* eslint-disable prefer-const */
 /* eslint-disable no-empty */
 /* eslint-disable max-len */
@@ -38,9 +40,20 @@ let winnerCheck = false;
 
 let useSmartAttack = false;
 
+const winnerArea = document.getElementById('winnerCircle');
+
 function winState() {
   winnerCheck = true;
-  if (this === 'player') { alert('you win'); } else { alert('computer wins'); }
+  if (this === 'player') {
+    winDivCreate('player');
+  } else { winDivCreate('computer'); }
+}
+
+function winDivCreate(winner) {
+  let winDiv = document.createElement('div');
+  winDiv.id = winDiv;
+  winDiv.textContent = winner + ' ' + 'wins!';
+  winnerArea.appendChild(winDiv);
 }
 
 function computerTurn(board) {

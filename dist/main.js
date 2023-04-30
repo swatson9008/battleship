@@ -22,6 +22,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameBoard */ "./src/gameBoard.js");
 /* harmony import */ var _players__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./players */ "./src/players.js");
 /* harmony import */ var ___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! . */ "./src/index.js");
+/* eslint-disable prefer-template */
+/* eslint-disable no-useless-concat */
 /* eslint-disable prefer-const */
 /* eslint-disable no-empty */
 /* eslint-disable max-len */
@@ -51,13 +53,20 @@ const humanPlayer = (0,_players__WEBPACK_IMPORTED_MODULE_1__.hPlayer)();
 let computerAttempts = 0;
 let winnerCheck = false;
 let useSmartAttack = false;
+const winnerArea = document.getElementById('winnerCircle');
 function winState() {
   winnerCheck = true;
   if (this === 'player') {
-    alert('you win');
+    winDivCreate('player');
   } else {
-    alert('computer wins');
+    winDivCreate('computer');
   }
+}
+function winDivCreate(winner) {
+  let winDiv = document.createElement('div');
+  winDiv.id = winDiv;
+  winDiv.textContent = winner + ' ' + 'wins!';
+  winnerArea.appendChild(winDiv);
 }
 function computerTurn(board) {
   if (useSmartAttack === true) {
