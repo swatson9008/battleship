@@ -78,8 +78,13 @@
 }
 
 @media (max-width: 1200px){
-    #boardC {
-        
+    #playerB {
+        margin-bottom: 20px;
     }
 
+}
+
+#winnerCircle {
+    margin-top: 20px;
+    text-align: center;
 }

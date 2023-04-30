@@ -45,8 +45,8 @@ const winnerArea = document.getElementById('winnerCircle');
 function winState() {
   winnerCheck = true;
   if (this === 'player') {
-    winDivCreate('player');
-  } else { winDivCreate('computer'); }
+    winDivCreate('Player');
+  } else { winDivCreate('Computer'); }
 }
 
 function winDivCreate(winner) {
