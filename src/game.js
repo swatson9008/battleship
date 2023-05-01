@@ -52,7 +52,7 @@ function winState() {
 function winDivCreate(winner) {
   let winDiv = document.createElement('div');
   winDiv.id = winDiv;
-  winDiv.textContent = winner + ' ' + 'wins!';
+  winDiv.innerHTML = '<span>' + winner + ' ' + 'wins!' + '</span>';
   winnerArea.appendChild(winDiv);
 }
 

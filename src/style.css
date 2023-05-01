@@ -1,3 +1,10 @@
+body {
+    background-color: rgb(111, 138, 163);
+    background: linear-gradient(rgba(0,0,0,.2), rgba(0,0,0,.2)), url('../src/media/mesmerizing-shot-crystal-blue-ocean-waves_181624-48854.avif');
+    background-size: cover;
+   
+}
+
 #mainContainer {
     margin-top: 30px;
 }
@@ -12,6 +19,7 @@
 #labels {
     display: grid;
     grid-template-columns: 1fr 2fr 2fr 1fr;
+    margin-bottom: 5px;
 }
 
 #pLabel {
@@ -45,6 +53,12 @@
     justify-content: flex-start;
     align-items: center;
     padding: 5px;
+}
+
+span {
+    background-color: aliceblue;
+    padding: 2px;
+    border-radius: 5px;
 }
 
 #playerB, #aiB {
