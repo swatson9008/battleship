@@ -446,6 +446,7 @@ function removeColor() {
   } else {
     this.style.backgroundColor = 'rgb(68, 182, 216)';
   }
+  paintCells(_game__WEBPACK_IMPORTED_MODULE_3__.playerBoard);
 }
 playerCells.forEach(cell => {
   cell.addEventListener('click', event => {
