@@ -138,6 +138,7 @@ function removeColor() {
   } else {
     this.style.backgroundColor = 'rgb(68, 182, 216)';
   }
+  paintCells(playerBoard);
 }
 
 playerCells.forEach((cell) => {
